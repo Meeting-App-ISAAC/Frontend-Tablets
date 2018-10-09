@@ -1,0 +1,78 @@
+main{
+  background-color: darkgreen;
+  width: calc(100% - 261px);
+  float: left;
+  height: 100vh;
+}
+aside{
+  width: 261px;
+  background-color: #EEEEEE;
+  float: right;
+  height: 100vh;
+}
+aside h3{
+  color: #333333;	font-family: "Open Sans";	font-size: 16px;	font-weight: 300;	line-height: 22px;	text-align: center;
+  margin-top: 25px;
+  margin-bottom: 17px;
+}
+aside #scrollbar{
+  overflow: scroll;
+  height: 100%;
+  position: relative;
+}
+aside .calendarBg{
+  width: 100%;
+  height: 47px;
+  margin: 0 0 1px 0;
+}
+aside .calendarBg .num{
+  float: left;
+  width: 24px;
+  height: 100%;
+  display: table;
+  text-align: center;
+  color: #999999;
+  font-size: 12px;
+  line-height: 17px;
+}
+aside .calendarBg .num span{
+  display: table-cell;
+  vertical-align: middle;
+}
+aside .calendarBg .display{
+  float: right;
+  width: 237px;
+  height: 100%;
+}
+aside .calendarBg .middleDisplay{
+  background-color: #CCCCCC;
+  height: 2px;
+
+}
+aside .calendarBg .topDisplay, aside .calendarBg .bottomDisplay{
+  background-color: white;
+  height: calc(50% - 1px);
+  width: 100%;
+}
+aside .reservationItem{
+  position: absolute;
+  height: 47px;
+  width: 238px;
+  background-color: #CCCCCC;
+  box-shadow: inset 0 1px 3px 0 rgba(0,0,0,0.3);
+  top: 30px;
+  left: 24px;
+  overflow: hidden;
+}
+aside .reservationItem span{
+  height: 15px;
+  width: 227.97px;
+  color: #000000;
+  font-family: "Open Sans";
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 15px;
+  white-space: nowrap;
+  margin: 5px 0 0 5px;
+  display: inline-block;
+}
