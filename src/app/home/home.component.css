@@ -1,9 +1,3 @@
-main{
-  background-color: darkgreen;
-  width: calc(100% - 261px);
-  float: left;
-  height: 100vh;
-}
 aside{
   width: 261px;
   background-color: #EEEEEE;
@@ -17,7 +11,7 @@ aside h3{
 }
 aside #scrollbar{
   overflow: scroll;
-  height: 100%;
+  height: calc(100% - 25px - 16px - 17px - 10px);
   position: relative;
 }
 aside .calendarBg{

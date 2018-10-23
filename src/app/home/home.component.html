@@ -1,16 +1,7 @@
-<main>
-  <header>
-  <div id="left">
-    <h2>NAME</h2>
-    <div>
-      <span id="floor">4th floor</span> <span id="capacity">4 persons</span>
-    </div>
-  </div>
-  <div id="right">
-    13:00
-  </div>
-</header>
-</main>
+<app-reserved *ngIf="isReserved && !isOccupied" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved>
+<app-occupied *ngIf="isReserved && isOccupied" [until]="getReservationUntil" [title]="getReservationTitle"></app-occupied>
+<app-free *ngIf="!isReserved" [until]="nextReservationDate"></app-free>
+
 <aside>
   <h3>Tuesday November 28th</h3>
   <div id="scrollbar">
