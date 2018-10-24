@@ -8,6 +8,7 @@ import { WrapperComponent } from './home/wrapper/wrapper.component';
 import { FreeComponent } from './home/free/free.component';
 import { OccupiedComponent } from './home/occupied/occupied.component';
 import { ReservedComponent } from './home/reserved/reserved.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,11 +17,12 @@ import { ReservedComponent } from './home/reserved/reserved.component';
     WrapperComponent,
     FreeComponent,
     OccupiedComponent,
-    ReservedComponent
+    ReservedComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

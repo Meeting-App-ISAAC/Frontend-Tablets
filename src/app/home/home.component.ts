@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {WebsocketConnectorService} from '../services/websocket-connector.service';
+import { ReservationModel} from '../interfaces/ReservationModel';
+import {ReservationStatusRESTService} from '../services/reservation-status-rest.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,7 @@ export class HomeComponent implements OnInit {
   public numbers: number[];
   public reservations: ReservationModel[] = [];
   public isOccupied : boolean = false;
-  constructor(private websocket :  WebsocketConnectorService) {
+  constructor(private websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
       console.log(data);
@@ -24,9 +26,7 @@ export class HomeComponent implements OnInit {
   public get nextReservationDate() : Date{
     const res = this.nextReservation;
     if(res === undefined){
-      let date = new Date();
-      date.setHours(24);
-      return date;
+      return null;
     }
     let result = new Date();
     result.setHours(0, 0, res.startHour * 60 * 60, 0);
@@ -41,7 +41,13 @@ export class HomeComponent implements OnInit {
   }
 
   public setOccupied(){
+    debugger;
+    this.rest.sendReservationStarted(this.currentReservation);
     this.isOccupied = true;
+  }
+
+  public endCurrentReservation(){
+    this.rest.sendReservationEnded(this.currentReservation);
   }
 
   private static caluculateDoubleHours() : number{
@@ -74,8 +80,3 @@ export class HomeComponent implements OnInit {
 
 }
 
-interface ReservationModel{
-  title: String;
-  startHour: number;
-  length: number;
-}

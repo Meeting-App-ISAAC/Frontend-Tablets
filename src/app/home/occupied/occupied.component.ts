@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-occupied',
@@ -11,6 +11,7 @@ export class OccupiedComponent implements OnInit {
 
   @Input() until : Date;
   @Input() title : String;
+  @Output() end = new EventEmitter();
   ngOnInit() {
   }
 
