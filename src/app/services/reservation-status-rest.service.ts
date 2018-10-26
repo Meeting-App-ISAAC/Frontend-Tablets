@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import {ReservationModel} from '../interfaces/ReservationModel';
-import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservationStatusRESTService {
+
+  constructor(private http : HttpClient) { }
 
   public sendReservationStarted(reservation : ReservationModel) : void {
     console.log("SEND");
@@ -16,7 +17,7 @@ export class ReservationStatusRESTService {
         'Content-Type': 'application/json'
       })
     };
-    this.http.post("http://localhost:8090/api/start", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post('http://localhost:8090/api/start', JSON.stringify(data), httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -48,7 +49,4 @@ export class ReservationStatusRESTService {
         //The POST observable is now completed
       });
   }
-
-
-  constructor(private http : HttpClient) { }
 }
