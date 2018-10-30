@@ -14,5 +14,7 @@ export class OccupiedComponent implements OnInit {
   @Output() end = new EventEmitter();
   ngOnInit() {
   }
-
+  public clicked() : void{
+    this.end.emit();
+  }
 }
