@@ -61,3 +61,57 @@ sub{
 #extend{
   background-image: url("../../../assets/extend.svg");
 }
+#extendDialog{
+  position: absolute;
+  height: 292px;
+  width: 550px;
+  background-color: rgba(255,255,255,1);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+  top:50%;
+  left:50%;
+  margin-top: -146px;
+  margin-left: -225px;
+  z-index: 10;
+}
+#extendDialog h3{
+  height: 30px;
+  width: 294px;
+  color: rgba(102,102,102,1);
+  font-family: "Rockwell Std";
+  font-size: 30px;
+  line-height: 36px;
+  margin: 24px 0 0 22px;
+}
+#extendDialog p{
+  margin-top: 43px;
+  margin-left: 22px;
+  color: rgba(102,102,102,1);
+  font-family: "Open Sans";
+  font-size: 16px;
+  line-height: 22px;
+}
+#extendDialog .time{
+  height: 40px;
+  width: 114px;
+  border: 2px solid rgba(102,102,102,1);
+  border-radius: 2px;
+  background-color: rgba(255,255,255,1);
+  margin-right: 7px;
+}
+#extendDialog #timeButtons{
+  margin: 20px 0 0 23px;
+  width: 512px;
+}
+#extendDialog #submitButton{
+  height: 40px;
+  width: 198px;
+  border-radius: 2px;
+  background-color: rgba(0,157,220,1);
+  color: rgba(255,255,255,1);
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin-left: 22px;
+  margin-top: 50px;
+}
