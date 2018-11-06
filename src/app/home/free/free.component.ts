@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-free',
@@ -7,9 +7,13 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class FreeComponent implements OnInit {
   @Input() until : Date;
+  @Output() reservationEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
 
+  public use() : void{
+    this.reservationEvent.emit();
+  }
 }

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/internal/operators';
+import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 
 @Component({
   selector: 'app-new-reservation',
@@ -11,20 +12,38 @@ import {map, startWith} from 'rxjs/internal/operators';
 export class NewReservationComponent implements OnInit {
 
 
-  constructor() { }
-  public timeButtonSelected : number = 0;
+  public constructor(private rest: ReservationStatusRESTService) {
+  }
+
+  public timeButtonSelected: number = 0;
+  private original;
+  @Output() cancelEvent = new EventEmitter();
+
   ngOnInit() {
+    this.rest.getUsers().subscribe(
+      (val) => {
+        this.original = val;
+        for (var i = 0; i < this.original.length; i++) {
+          this.options[i] = val[i].name;
+        }
+      },
+      response => {
+      },
+      () => {
+      });
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(value => this._filter(value))
       );
   }
-  public clickTimeButton(id : number): void{
+
+  public clickTimeButton(id: number): void {
     this.timeButtonSelected = id;
   }
+
   myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three', '4', '5','6 ','7,','8'];
+  public options: any = [];
   filteredOptions: Observable<string[]>;
 
   private _filter(value: string): string[] {
@@ -33,11 +52,39 @@ export class NewReservationComponent implements OnInit {
     return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
-  public submit() : void{
+  public submit(): void {
     console.log(this.myControl.value);
+
+    this.rest.createReservation(this.getUserId(), this.getMinutes());
+    this.cancel();
   }
 
-  public cancel() : void{
+  private getUserId(): number {
 
+    for (var i = 0; i < this.original.length; i++) {
+      if (this.original[i].name === this.myControl.value) {
+        return this.original[i].id;
+      }
+    }
+  }
+
+
+  public cancel(): void {
+    this.timeButtonSelected = 0;
+    this.myControl.setValue("");
+    this.cancelEvent.emit();
+  }
+
+  private getMinutes(): number {
+    switch (this.timeButtonSelected) {
+      case 0:
+        return 15;
+      case 1:
+        return 30;
+      case 2:
+        return 45;
+      case 3:
+        return 60;
+    }
   }
 }
