@@ -19,7 +19,7 @@ export class WrapperComponent implements OnInit {
   private setDate() : void{
     setInterval(() => {
       this.currentDate = new Date();
-    }, 1);
+    }, 1000);
   }
 
 }
