@@ -1,8 +1,24 @@
 <app-wrapper backgroundColor="rgba(193,45,63,1)">
+  <div id="extendDialog">
+    <h3>Extend meeting</h3>
+    <span class="close"></span>
+    <p>For how long do you want to extend your meeting?</p>
+    <div id="timeButtons">
+      <button class="selected time">15 MIN</button>
+      <button class="time">30 MIN</button>
+      <button class="time">45 MIN</button>
+      <button class="time">1 HOUR</button>
+    </div>
+    <button id="submitButton">EXTEND MEETING</button>
+  </div>
   <div id="container">
     <h1>OCCUPIED</h1>
     <div id="by"><i class="personIcon"></i> By {{title}}</div>
     <sub>Until {{until | date:"H:mm"}}</sub>
-    <button id="use" (click)="clicked()">END</button>
+  </div>
+
+  <div id="buttonGroup">
+    <button id="end" (click)="endEvent()">END</button>
+    <button id="extend" (click)="extendEvent()">EXTEND</button>
   </div>
 </app-wrapper>
