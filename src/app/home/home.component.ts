@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
   }
 
   public setOccupied(){
-    debugger;
     this.rest.sendReservationStarted(this.currentReservation);
     this.isOccupied = true;
   }
