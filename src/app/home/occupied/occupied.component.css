@@ -97,6 +97,9 @@ sub{
   border-radius: 2px;
   background-color: rgba(255,255,255,1);
   margin-right: 7px;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
 }
 #extendDialog #timeButtons{
   margin: 20px 0 0 23px;
@@ -114,4 +117,16 @@ sub{
   text-align: center;
   margin-left: 22px;
   margin-top: 50px;
+}
+#extendDialog .selected{
+  border: 2px solid rgba(0,157,220,1);
+  color: rgba(0,157,220,1);
+}
+.close{
+  background-image: url("../../../assets/close.svg");
+  height: 14px;	width: 14px;
+  display: block;
+  position: absolute;
+  top: 22px;
+  right: 22px;
 }

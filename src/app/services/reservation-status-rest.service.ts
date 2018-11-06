@@ -48,6 +48,25 @@ export class ReservationStatusRESTService {
         //The POST observable is now completed
       });
   }
+  public sendReservationExtend(reservation : ReservationModel, minutes : number){
+    const data = {"roomId" : 1, "reservationId" : reservation.id, minutes : minutes};
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post("http://localhost:8090/api/extend", JSON.stringify(data) ,httpOptions).subscribe(
+      (val) => {
+        //POST call successful value returned in body
+        //this.result = val.toString();
+      },
+      response => {
+        //POST call in error
+      },
+      () => {
+        //The POST observable is now completed
+      });
+  }
 
 
   constructor(private http : HttpClient) { }
