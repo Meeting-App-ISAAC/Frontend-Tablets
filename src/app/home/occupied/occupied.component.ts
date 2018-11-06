@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {ReservationModel} from '../../interfaces/ReservationModel';
 import {DurationButtonUser} from '../DurationButtonUser';
@@ -8,7 +8,7 @@ import {DurationButtonUser} from '../DurationButtonUser';
   templateUrl: './occupied.component.html',
   styleUrls: ['./occupied.component.css']
 })
-export class OccupiedComponent extends DurationButtonUser{
+export class OccupiedComponent extends DurationButtonUser implements AfterViewInit, OnChanges{
 
 
   @Input() until : Date;
@@ -21,6 +21,26 @@ export class OccupiedComponent extends DurationButtonUser{
     super();
   }
 
+
+  public ngAfterViewInit(): void {
+
+    this.reset();
+  }
+
+  private reset() : void{
+    this.showDialog = false;
+    this.timeButtonSelected = 0;
+    this.error = false;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if(!!changes.until){
+      if(changes.until.previousValue.getTime() - changes.until.currentValue.getTime() !== 0) {
+        this.reset();
+      }
+    }
+  }
 
   public endEvent() : void{
     this.closeExtendDialog();
@@ -36,8 +56,7 @@ export class OccupiedComponent extends DurationButtonUser{
     this.showDialog = true;
   }
   public closeExtendDialog() : void{
-    this.showDialog = false;
-    this.timeButtonSelected = 0;
+    this.reset();
   }
   private showError(){
     this.error = true;

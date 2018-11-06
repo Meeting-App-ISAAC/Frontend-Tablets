@@ -14,6 +14,7 @@ export class FreeComponent implements OnInit, OnChanges {
     }
   }
 
+
   @Input() until : Date;
   @Output() reservationEvent = new EventEmitter();
   public showButton : boolean = true;
