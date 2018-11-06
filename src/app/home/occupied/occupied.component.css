@@ -122,6 +122,11 @@ sub{
   border: 2px solid rgba(0,157,220,1);
   color: rgba(0,157,220,1);
 }
+#extendDialog button:disabled,
+#extendDialog button[disabled]{
+  opacity: 0.3;
+}
+
 .close{
   background-image: url("../../../assets/close.svg");
   height: 14px;	width: 14px;
@@ -129,4 +134,10 @@ sub{
   position: absolute;
   top: 22px;
   right: 22px;
+}
+.error{
+  color: red;
+  margin-top: 12px;
+  margin-left: 22px;
+  margin-bottom: -10px;
 }
