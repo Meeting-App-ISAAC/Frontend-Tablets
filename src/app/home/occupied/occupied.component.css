@@ -15,19 +15,6 @@ sub{
   display: inline-block;
   padding-left: 30px;
 }
-#use{
-  display: block;
-  margin: 30px auto;
-  height: 40px;
-  width: 237px;
-  border: 2px solid rgba(255,255,255,1);
-  border-radius: 2px;
-  background-color: rgba(255,255,255,1);
-
-  color: rgba(193,45,63,1);
-  font-family: "Rockwell Std";
-  font-size: 20px;
-}
 #container{
   position: absolute;
   width: 100%;
@@ -46,4 +33,31 @@ sub{
   font-size: 30px;
   font-weight: 300;
   line-height: 41px;
+}
+#buttonGroup{
+  position: absolute;
+  left: 20px;
+  bottom: 30px;
+  height: 92px;
+}
+#end, #extend{
+  display: block;
+  color: white;
+  height: 40px;
+  width: 128px;
+  border: 2px solid rgba(255,255,255,1);
+  border-radius: 3px;
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  margin-bottom: 10px;
+  text-align: right;
+  background: transparent no-repeat left 10px center;
+}
+#end{
+  background-image: url("../../../assets/endClock.svg");
+  width: 90px;
+}
+#extend{
+  background-image: url("../../../assets/extend.svg");
 }

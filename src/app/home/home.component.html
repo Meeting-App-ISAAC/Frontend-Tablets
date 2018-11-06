@@ -1,6 +1,6 @@
-<app-reserved *ngIf="isReserved && !isOccupied" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved>
-<app-occupied *ngIf="isReserved && isOccupied" [until]="getReservationUntil" [title]="getReservationTitle" (end)="endCurrentReservation()"></app-occupied>
-<app-free *ngIf="!isReserved" [until]="nextReservationDate"></app-free>
+<!--<app-reserved *ngIf="isReserved && !isOccupied" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved> -->
+<app-occupied  [until]="getReservationUntil" [title]="getReservationTitle" (end)="endCurrentReservation()"></app-occupied>
+<!-- <app-free *ngIf="!isReserved" [until]="nextReservationDate"></app-free> *ngIf="isReserved && isOccupied" -->
 
 <aside>
   <h3>Tuesday November 28th</h3>
