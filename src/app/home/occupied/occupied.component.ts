@@ -1,67 +1,27 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {ReservationModel} from '../../interfaces/ReservationModel';
+import {DurationButtonUser} from '../DurationButtonUser';
 
 @Component({
   selector: 'app-occupied',
   templateUrl: './occupied.component.html',
   styleUrls: ['./occupied.component.css']
 })
-export class OccupiedComponent implements OnInit, OnChanges {
+export class OccupiedComponent extends DurationButtonUser{
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if(!!changes.nextReservation){
-      this.calcualteTimeUntil();
-    }
-  }
 
-  @Input() currentReservation : ReservationModel;
-  @Input() nextReservation : ReservationModel;
   @Input() until : Date;
   @Input() title : String;
   @Output() end = new EventEmitter();
-  public timeButtonSelected : number = 0;
-  public timeButtonsFree : number = -1;
 
   public showDialog : boolean =false;
   public error : boolean = false;
-  public constructor(private rest : ReservationStatusRESTService){}
-  private setButtonFree(time : number){
-    this.timeButtonsFree = time;
-    if(this.timeButtonSelected >= time){
-      this.timeButtonSelected = time;
-    }
+  public constructor(private rest : ReservationStatusRESTService){
+    super();
   }
 
-  private calcualteTimeUntil(){
 
-    if(!this.nextReservation){
-      this.setButtonFree(3);
-      return;
-    }
-    let timeUntilinMinutes =  (this.nextReservation.startHour - this.currentReservation.startHour - this.currentReservation.length) * 60;
-    if(timeUntilinMinutes < 15){
-      this.setButtonFree(-1);
-      return;
-    }
-    if(timeUntilinMinutes < 30){
-      this.setButtonFree(0);
-      return;
-    }
-    if(timeUntilinMinutes < 45){
-      this.setButtonFree(1);
-      return;
-    }
-    if(timeUntilinMinutes < 60){
-      this.setButtonFree(2);
-      return;
-    }
-    this.setButtonFree(3);
-
-  }
-  ngOnInit() {
-    this.calcualteTimeUntil();
-  }
   public endEvent() : void{
     this.closeExtendDialog();
     this.end.emit();
@@ -70,6 +30,9 @@ export class OccupiedComponent implements OnInit, OnChanges {
     this.openExtendDialog();
   }
   private openExtendDialog() : void{
+    console.log(this.currentReservation);
+    console.log(this.nextReservation);
+    console.log(this.timeButtonsFree);
     this.showDialog = true;
   }
   public closeExtendDialog() : void{
@@ -98,16 +61,5 @@ export class OccupiedComponent implements OnInit, OnChanges {
       () => {
         //The POST observable is now completed
       });
-  }
-  private getMinutes() : number{
-    switch (this.timeButtonSelected){
-      case 0: return 15;
-      case 1: return 30;
-      case 2: return 45;
-      case 3: return 60;
-    }
-  }
-  public clickTimeButton(id : number): void{
-    this.timeButtonSelected = id;
   }
 }

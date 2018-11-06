@@ -38,7 +38,11 @@ export class HomeComponent implements OnInit {
     this.makeReservation = true;
   }
   public get isReserved() : boolean{
-    return !(this.currentReservation === null || this.currentReservation === undefined);
+    if( !(this.currentReservation === null || this.currentReservation === undefined)){
+      this.makeReservation = false;
+      return true;
+    }
+    return false;
   }
 
   public setOccupied(){
@@ -49,7 +53,7 @@ export class HomeComponent implements OnInit {
     this.rest.sendReservationEnded(this.currentReservation);
   }
 
-  private static caluculateDoubleHours() : number{
+  public static caluculateDoubleHours() : number{
     return new Date().getHours() + new Date().getMinutes() / 60 + new Date().getSeconds() / 3600;
   }
 

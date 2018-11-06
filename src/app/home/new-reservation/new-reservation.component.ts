@@ -1,25 +1,37 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/internal/operators';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
+import {DurationButtonUser} from '../DurationButtonUser';
 
 @Component({
   selector: 'app-new-reservation',
   templateUrl: './new-reservation.component.html',
   styleUrls: ['./new-reservation.component.css']
 })
-export class NewReservationComponent implements OnInit {
+export class NewReservationComponent extends DurationButtonUser  implements OnInit, OnChanges {
 
 
   public constructor(private rest: ReservationStatusRESTService) {
+    super();
   }
 
-  public timeButtonSelected: number = 0;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    super.ngOnChanges(changes);
+    if(this.timeButtonsFree < 0){
+      this.myControl.disable();
+    } else {
+      this.myControl.enable();
+    }
+  }
+
   private original;
   @Output() cancelEvent = new EventEmitter();
 
   ngOnInit() {
+    super.ngOnInit();
     this.rest.getUsers().subscribe(
       (val) => {
         this.original = val;
@@ -38,9 +50,6 @@ export class NewReservationComponent implements OnInit {
       );
   }
 
-  public clickTimeButton(id: number): void {
-    this.timeButtonSelected = id;
-  }
 
   myControl = new FormControl();
   public options: any = [];
@@ -75,16 +84,5 @@ export class NewReservationComponent implements OnInit {
     this.cancelEvent.emit();
   }
 
-  private getMinutes(): number {
-    switch (this.timeButtonSelected) {
-      case 0:
-        return 15;
-      case 1:
-        return 30;
-      case 2:
-        return 45;
-      case 3:
-        return 60;
-    }
-  }
+
 }
