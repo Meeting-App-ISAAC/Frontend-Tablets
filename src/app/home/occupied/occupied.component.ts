@@ -32,8 +32,8 @@ export class OccupiedComponent implements OnInit {
     this.timeButtonSelected = 0;
   }
   public submitExtendDialog() : void{
-    this.closeExtendDialog();
     this.rest.sendReservationExtend(this.currentReservation, this.getMinutes());
+    this.closeExtendDialog();
   }
   private getMinutes() : number{
     switch (this.timeButtonSelected){
