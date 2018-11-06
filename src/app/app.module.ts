@@ -9,6 +9,10 @@ import { FreeComponent } from './home/free/free.component';
 import { OccupiedComponent } from './home/occupied/occupied.component';
 import { ReservedComponent } from './home/reserved/reserved.component';
 import {HttpClientModule} from '@angular/common/http';
+import { NewReservationComponent } from './home/new-reservation/new-reservation.component';
+import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
+import {MatAutocomplete, MatAutocompleteModule, MatInput, MatInputModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,11 +22,17 @@ import {HttpClientModule} from '@angular/common/http';
     FreeComponent,
     OccupiedComponent,
     ReservedComponent,
+    NewReservationComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    NoopAnimationsModule,
+    MatInputModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

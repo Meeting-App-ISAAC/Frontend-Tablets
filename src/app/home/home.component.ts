@@ -34,10 +34,11 @@ export class HomeComponent implements OnInit {
   }
 
   public get isReserved() : boolean{
-    if(this.currentReservation === null){
+    if(this.currentReservation === null || this.currentReservation === undefined){
       this.isOccupied = false;
+      return false;
     }
-    return this.currentReservation !== undefined;
+    return true;
   }
 
   public setOccupied(){

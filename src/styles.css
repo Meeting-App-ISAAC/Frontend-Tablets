@@ -1,6 +1,6 @@
 
 @import "assets/OpenSans.css";
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 *{
   font-family: Open Sans;
 }
@@ -57,4 +57,9 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
-
+.mat-autocomplete-panel{
+  max-height: 187px !important;
+}
+.mat-option {
+  height: 47px !important;
+}

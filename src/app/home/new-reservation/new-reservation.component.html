@@ -1,0 +1,25 @@
+<app-wrapper backgroundColor="rgba(255,255,255,1)" timeColor="rgba(102,102,102,1)" [showName]="false">
+  <div id="container">
+    <h1>Reserve NAME</h1>
+    <p>How long is the meeting going to be?</p>
+    <div id="timeButtons">
+      <button (click)="clickTimeButton(0)" [ngClass]="timeButtonSelected === 0 ? 'selected' : ''" class=" time">15 MIN</button>
+      <button (click)="clickTimeButton(1)" [ngClass]="timeButtonSelected === 1 ? 'selected' : ''" class="time">30 MIN</button>
+      <button (click)="clickTimeButton(2)" [ngClass]="timeButtonSelected === 2 ? 'selected' : ''" class="time">45 MIN</button>
+      <button (click)="clickTimeButton(3)" [ngClass]="timeButtonSelected === 3 ? 'selected' : ''" class="time">1 HOUR</button>
+    </div>
+    <p>Who are you?</p>
+    <form class="example-form">
+      <mat-form-field class="full-width">
+        <input type="text" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </form>
+    <button id="submitButton" (click)="submit()">EXTEND MEETING</button>
+    <button id="cancelButton" (click)="cancel()">CANCEL</button>
+  </div>
+</app-wrapper>
