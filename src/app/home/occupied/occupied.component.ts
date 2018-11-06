@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {ReservationModel} from '../../interfaces/ReservationModel';
 
@@ -7,7 +7,13 @@ import {ReservationModel} from '../../interfaces/ReservationModel';
   templateUrl: './occupied.component.html',
   styleUrls: ['./occupied.component.css']
 })
-export class OccupiedComponent implements OnInit {
+export class OccupiedComponent implements OnInit, OnChanges {
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(!!changes.nextReservation){
+      this.calcualteTimeUntil();
+    }
+  }
 
   @Input() currentReservation : ReservationModel;
   @Input() nextReservation : ReservationModel;
@@ -22,18 +28,18 @@ export class OccupiedComponent implements OnInit {
   public constructor(private rest : ReservationStatusRESTService){}
   private setButtonFree(time : number){
     this.timeButtonsFree = time;
-    if(this.timeButtonSelected > time){
+    if(this.timeButtonSelected >= time){
       this.timeButtonSelected = time;
     }
   }
-  ngOnInit() {
+
+  private calcualteTimeUntil(){
 
     if(!this.nextReservation){
       this.setButtonFree(3);
       return;
     }
-
-    let timeUntilinMinutes =  (this.nextReservation.startHour - this.currentReservation.startHour + this.currentReservation.length) * 60;
+    let timeUntilinMinutes =  (this.nextReservation.startHour - this.currentReservation.startHour - this.currentReservation.length) * 60;
     if(timeUntilinMinutes < 15){
       this.setButtonFree(-1);
       return;
@@ -52,6 +58,9 @@ export class OccupiedComponent implements OnInit {
     }
     this.setButtonFree(3);
 
+  }
+  ngOnInit() {
+    this.calcualteTimeUntil();
   }
   public endEvent() : void{
     this.closeExtendDialog();
@@ -77,7 +86,7 @@ export class OccupiedComponent implements OnInit {
     this.hideError();
     this.rest.sendReservationExtend(this.currentReservation, this.getMinutes()).subscribe(
       (val) => {
-        if(val.toString() === "true"){
+        if(val.toString() === 'true'){
           this.closeExtendDialog();
         } else {
           this.showError();

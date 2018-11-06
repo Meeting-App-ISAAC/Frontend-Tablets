@@ -11,7 +11,6 @@ import {ReservationStatusRESTService} from '../services/reservation-status-rest.
 export class HomeComponent implements OnInit {
   public numbers: number[];
   public reservations: ReservationModel[] = [];
-  public isOccupied : boolean = false;
   constructor(private websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
@@ -34,16 +33,11 @@ export class HomeComponent implements OnInit {
   }
 
   public get isReserved() : boolean{
-    if(this.currentReservation === null || this.currentReservation === undefined){
-      this.isOccupied = false;
-      return false;
-    }
-    return true;
+    return !(this.currentReservation === null || this.currentReservation === undefined);
   }
 
   public setOccupied(){
     this.rest.sendReservationStarted(this.currentReservation);
-    this.isOccupied = true;
   }
 
   public endCurrentReservation(){
