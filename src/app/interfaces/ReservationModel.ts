@@ -3,4 +3,5 @@ export interface ReservationModel {
   startHour: number;
   length: number;
   id : number;
+  hasStarted: boolean;
 }
