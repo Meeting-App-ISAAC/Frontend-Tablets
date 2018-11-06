@@ -28,12 +28,13 @@ export class OccupiedComponent implements OnInit {
   }
   ngOnInit() {
 
+    console.log(this.nextReservation);
+
     if(!this.nextReservation){
       this.setButtonFree(3);
       return;
     }
-
-    let timeUntilinMinutes =  (this.nextReservation.startHour - this.currentReservation.startHour + this.currentReservation.length) * 60;
+    let timeUntilinMinutes =  (this.nextReservation.startHour - this.currentReservation.startHour - this.currentReservation.length) * 60;
     if(timeUntilinMinutes < 15){
       this.setButtonFree(-1);
       return;
