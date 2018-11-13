@@ -9,7 +9,7 @@ export class WrapperComponent implements OnInit {
   public currentDate : Date = new Date();
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
-  @Input() timeColor : string = "white";
+  @Input() textColor : string = "white";
   constructor() {
     this.setDate();
   }

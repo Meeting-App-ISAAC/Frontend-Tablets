@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   public reservations: ReservationModel[] = [];
   public makeReservation: boolean = false;
 
-  constructor(private websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
+  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
       console.log(data);
