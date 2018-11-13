@@ -2,6 +2,7 @@
   <div id="container">
     <h1>FREE</h1>
     <sub *ngIf="until !== null">Until {{until | date:"H:mm"}}</sub>
-    <button id="use">USE MEETING ROOM</button>
+    <button id="use" (click)="use()" *ngIf="showButton === true">USE MEETING ROOM</button>
+
   </div>
 </app-wrapper>

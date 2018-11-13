@@ -11,6 +11,8 @@ import {ReservationStatusRESTService} from '../services/reservation-status-rest.
 export class HomeComponent implements OnInit {
   public numbers: number[];
   public reservations: ReservationModel[] = [];
+  public makeReservation: boolean = false;
+
   constructor(private websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
@@ -32,8 +34,15 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
+  public showReservationPanel() : void{
+    this.makeReservation = true;
+  }
   public get isReserved() : boolean{
-    return !(this.currentReservation === null || this.currentReservation === undefined);
+    if( !(this.currentReservation === null || this.currentReservation === undefined)){
+      this.makeReservation = false;
+      return true;
+    }
+    return false;
   }
 
   public setOccupied(){
@@ -44,7 +53,7 @@ export class HomeComponent implements OnInit {
     this.rest.sendReservationEnded(this.currentReservation);
   }
 
-  private static caluculateDoubleHours() : number{
+  public static caluculateDoubleHours() : number{
     return new Date().getHours() + new Date().getMinutes() / 60 + new Date().getSeconds() / 3600;
   }
 
@@ -69,6 +78,11 @@ export class HomeComponent implements OnInit {
     }
     return res.title;
   }
+
+  public closeReservationPanel() : void{
+    this.makeReservation = false;
+  }
+
   ngOnInit() {
   }
 

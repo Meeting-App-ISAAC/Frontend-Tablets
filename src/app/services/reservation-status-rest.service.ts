@@ -48,6 +48,26 @@ export class ReservationStatusRESTService {
         //The POST observable is now completed
       });
   }
+
+  public createReservation(userId : number, duration : number) {
+    const data = {"roomId" : 1, "userId" : userId, "duration" : duration};
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    this.http.post("http://localhost:8090/api/create", JSON.stringify(data) ,httpOptions).subscribe(
+      (val) => {
+        //POST call successful value returned in body
+        //this.result = val.toString();
+      },
+      response => {
+        //POST call in error
+      },
+      () => {
+        //The POST observable is now completed
+      });
+  }
   public sendReservationExtend(reservation : ReservationModel, minutes : number) : Observable<object>{
     const data = {"roomId" : 1, "reservationId" : reservation.id, minutes : minutes};
     const httpOptions = {
@@ -58,6 +78,12 @@ export class ReservationStatusRESTService {
     let post = this.http.post("http://localhost:8090/api/extend", JSON.stringify(data) ,httpOptions)
     return post;
   }
+
+  public getUsers() : Observable<object>{
+    return this.http.get("http://localhost:8090/api/users");
+  }
+
+
 
 
   constructor(private http : HttpClient) { }
