@@ -5,7 +5,7 @@
 <app-free *ngIf="websocket.connected && !makeReservation && !isReserved" [until]="nextReservationDate" (reservationEvent)="showReservationPanel()"></app-free>
 
 <aside>
-  <h3>Tuesday November 28th</h3>
+  <h3>{{currentDate | date:"EEEE MMMM d" }}th</h3>
   <div id="scrollbar">
 
 
