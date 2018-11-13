@@ -12,10 +12,14 @@ import {DurationButtonUser} from '../DurationButtonUser';
 })
 export class NewReservationComponent extends DurationButtonUser  implements OnInit, OnChanges, AfterViewInit {
 
+  public nameFoundError : boolean = false;
+
   public ngAfterViewInit(): void {
+    this.nameFoundError = false;
     this.resetTimer();
     this.timeButtonSelected = 0;
-    this.myControl.setValue('');
+    this.myControl.setValue(null);
+    setTimeout(() => this.populateWithNames(),1);
   }
 
   private timeoutTimer;
@@ -38,11 +42,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
     }
   }
 
-  private original;
-  @Output() cancelEvent = new EventEmitter();
-
-  ngOnInit() {
-    super.ngOnInit();
+  private populateWithNames() : void{
     this.rest.getUsers().subscribe(
       (val) => {
         this.original = val;
@@ -61,9 +61,20 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
       );
   }
 
+  private original;
+  @Output() cancelEvent = new EventEmitter();
+
+  ngOnInit() {
+    super.ngOnInit();
+  }
+
+  public inputChange() : void{
+    this.nameFoundError = false;
+  }
+
 
   myControl = new FormControl();
-  public options: string[] = [""];
+  public options: string[] = [];
   filteredOptions: Observable<string[]>;
 
   private _filter(value: string): string[] {
@@ -75,8 +86,12 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
   public submit(): void {
     console.log(this.myControl.value);
 
-    this.rest.createReservation(this.getUserId(), this.getMinutes());
-    this.cancel();
+    this.nameFoundError = this.getUserId() == -1;
+    if(!this.nameFoundError) {
+
+      this.rest.createReservation(this.getUserId(), this.getMinutes());
+      this.cancel();
+    }
   }
 
   private getUserId(): number {
@@ -86,6 +101,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
         return this.original[i].id;
       }
     }
+    return -1;
   }
 
 

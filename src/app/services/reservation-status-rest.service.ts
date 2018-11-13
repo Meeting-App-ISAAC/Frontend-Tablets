@@ -16,7 +16,7 @@ export class ReservationStatusRESTService {
         'Content-Type': 'application/json'
       })
     };
-    this.http.post("http://localhost:8090/api/start", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post("http://"+location.hostname+":8090/api/start", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -36,7 +36,7 @@ export class ReservationStatusRESTService {
         'Content-Type': 'application/json'
       })
     };
-    this.http.post("http://localhost:8090/api/stop", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post("http://"+location.hostname+":8090/api/stop", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -56,7 +56,7 @@ export class ReservationStatusRESTService {
         'Content-Type': 'application/json'
       })
     };
-    this.http.post("http://localhost:8090/api/create", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post("http://"+location.hostname+":8090/api/create", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -75,12 +75,12 @@ export class ReservationStatusRESTService {
         'Content-Type': 'application/json'
       })
     };
-    let post = this.http.post("http://localhost:8090/api/extend", JSON.stringify(data) ,httpOptions)
+    let post = this.http.post("http://"+location.hostname+":8090/api/extend", JSON.stringify(data) ,httpOptions)
     return post;
   }
 
   public getUsers() : Observable<object>{
-    return this.http.get("http://localhost:8090/api/users");
+    return this.http.get("http://"+location.hostname+":8090/api/users");
   }
 
 

@@ -14,7 +14,7 @@ export class WebsocketConnectorService {
   private connect() : void{
     try {
       if(this.tw === null || this.tw.readyState === this.tw.CLOSING || this.tw.readyState === this.tw.CLOSED) {
-        this.tw = new WebSocket("ws://localhost:8090/reservation/");
+        this.tw = new WebSocket("ws://"+location.hostname+":8090/reservation/");
         this.tw.onmessage = (message) => {
           console.log(JSON.parse(message.data));
           this.reservationUpdate.emit(JSON.parse(message.data));
