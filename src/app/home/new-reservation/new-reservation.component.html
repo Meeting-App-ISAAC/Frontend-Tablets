@@ -1,4 +1,4 @@
-<app-wrapper backgroundColor="rgba(255,255,255,1)" [textColor]="rgba(102,102,102,1)" [showName]="false">
+<app-wrapper backgroundColor="rgba(255,255,255,1)" textColor="rgba(102,102,102,1)" [showName]="false">
   <div id="container" (click)="resetTimer()">
     <h1>Reserve NAME</h1>
     <p>How long is the meeting going to be?</p>
@@ -11,7 +11,7 @@
     <p>Who are you?</p>
     <form class="example-form" *ngIf="options.length > 0">
       <mat-form-field class="full-width">
-        <input type="text" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <input type="text" #autoCompleteInput aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="inputChange()">
             {{option}}

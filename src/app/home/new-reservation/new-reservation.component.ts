@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/internal/operators';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {DurationButtonUser} from '../DurationButtonUser';
+import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material';
 
 @Component({
   selector: 'app-new-reservation',
@@ -13,7 +14,8 @@ import {DurationButtonUser} from '../DurationButtonUser';
 export class NewReservationComponent extends DurationButtonUser  implements OnInit, OnChanges, AfterViewInit {
 
   public nameFoundError : boolean = false;
-
+  @ViewChild('autoCompleteInput', { read: MatAutocompleteTrigger })
+  public panel : MatAutocompleteTrigger;
   public ngAfterViewInit(): void {
     this.nameFoundError = false;
     this.resetTimer();
@@ -49,6 +51,8 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
         for (var i = 0; i < this.original.length; i++) {
           this.options[i] = val[i].name;
         }
+        setTimeout(() => this.panel.openPanel(), 10);
+
       },
       response => {
       },
