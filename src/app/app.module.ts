@@ -13,6 +13,7 @@ import { NewReservationComponent } from './home/new-reservation/new-reservation.
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocomplete, MatAutocompleteModule, MatInput, MatInputModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NoConnectionComponent } from './home/no-connection/no-connection.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     OccupiedComponent,
     ReservedComponent,
     NewReservationComponent,
+    NoConnectionComponent,
   ],
   imports: [
     BrowserModule,

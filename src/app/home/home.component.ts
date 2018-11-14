@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {WebsocketConnectorService} from '../services/websocket-connector.service';
 import { ReservationModel} from '../interfaces/ReservationModel';
 import {ReservationStatusRESTService} from '../services/reservation-status-rest.service';
@@ -12,13 +12,23 @@ export class HomeComponent implements OnInit {
   public numbers: number[];
   public reservations: ReservationModel[] = [];
   public makeReservation: boolean = false;
+  public currentDate : Date = new Date();
+  @Input() backgroundColor : string = "red";
+  @Input() showName : boolean = true;
+  @Input() textColor : string = "white";
 
-  constructor(private websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
+  private setDate() : void{
+    setInterval(() => {
+      this.currentDate = new Date();
+    }, 1000);
+  }
+  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
       console.log(data);
       this.reservations = data;
-    })
+    });
+    this.setDate();
   }
 
   public get nextReservation() : ReservationModel{

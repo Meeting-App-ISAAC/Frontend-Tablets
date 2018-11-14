@@ -35,7 +35,7 @@ export class OccupiedComponent extends DurationButtonUser implements AfterViewIn
 
   ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
-    if(!!changes.until){
+    if(!!changes.until && !!changes.until.previousValue && !!changes.until.currentValue){
       if(changes.until.previousValue.getTime() - changes.until.currentValue.getTime() !== 0) {
         this.reset();
       }

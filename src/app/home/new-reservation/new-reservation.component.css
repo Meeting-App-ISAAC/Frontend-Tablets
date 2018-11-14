@@ -65,3 +65,6 @@ p{
   line-height: 22px;
   margin-top: 37px;
 }
+.error{
+  color: red;
+}

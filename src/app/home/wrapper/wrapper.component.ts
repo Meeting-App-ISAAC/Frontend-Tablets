@@ -6,10 +6,10 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./wrapper.component.css']
 })
 export class WrapperComponent implements OnInit {
-  public currentDate : Date;
+  public currentDate : Date = new Date();
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
-  @Input() timeColor : string = "white";
+  @Input() textColor : string = "white";
   constructor() {
     this.setDate();
   }
