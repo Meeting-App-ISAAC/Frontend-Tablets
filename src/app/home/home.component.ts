@@ -10,7 +10,9 @@ import {ReservationStatusRESTService} from '../services/reservation-status-rest.
 })
 export class HomeComponent implements OnInit {
   public numbers: number[];
-  public reservations: ReservationModel[] = [];
+  public roomId : number = 1;
+  public localReservations: ReservationModel[] = [];
+  public roomsCollection = [];
   public makeReservation: boolean = false;
   public currentDate : Date = new Date();
   @Input() backgroundColor : string = "red";
@@ -25,14 +27,18 @@ export class HomeComponent implements OnInit {
   constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
-      console.log(data);
-      this.reservations = data;
+      for(let i = 0; i < data.length; i++){
+        if(data[i].roomId === this.roomId){
+          this.localReservations = data[i].reservations;
+        }
+      }
+      this.roomsCollection = data;
     });
     this.setDate();
   }
 
   public get nextReservation() : ReservationModel{
-    return this.reservations.find(x => x.startHour >  HomeComponent.caluculateDoubleHours());
+    return this.localReservations.find(x => x.startHour >  HomeComponent.caluculateDoubleHours());
   }
   public get nextReservationDate() : Date{
     const res = this.nextReservation;
@@ -68,7 +74,7 @@ export class HomeComponent implements OnInit {
   }
 
   public get currentReservation() : ReservationModel{
-    return this.reservations.find(x => x.startHour <= HomeComponent.caluculateDoubleHours() && x.startHour + x.length > HomeComponent.caluculateDoubleHours());
+    return this.localReservations.find(x => x.startHour <= HomeComponent.caluculateDoubleHours() && x.startHour + x.length > HomeComponent.caluculateDoubleHours());
   }
 
   public get getReservationUntil() : Date{

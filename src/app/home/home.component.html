@@ -19,7 +19,7 @@
     </div>
     <!--[ngStyle]="{'top':res.startHour * 48 + 30}-->
 
-    <div class="reservationItem" *ngFor="let res of reservations" [ngStyle]="{'top.px':res.startHour * 48 + 24, 'height.px' : res.length * 48}" >
+    <div class="reservationItem" *ngFor="let res of localReservations" [ngStyle]="{'top.px':res.startHour * 48 + 24, 'height.px' : res.length * 48}" >
       <span>{{ res.title }}</span>
     </div>
 
