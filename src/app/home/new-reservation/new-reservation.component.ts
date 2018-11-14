@@ -51,7 +51,10 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
         for (var i = 0; i < this.original.length; i++) {
           this.options[i] = val[i].name;
         }
-        setTimeout(() => this.panel.openPanel(), 10);
+        setTimeout(() => {
+          this.panel.openPanel();
+          this.panel.panelClosingActions.subscribe( x => console.log(x) );
+        }, 10);
 
       },
       response => {
@@ -65,6 +68,10 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
       );
   }
 
+  public reopenPanel() : void{
+    setTimeout(() => this.panel.openPanel(), 1);
+
+  }
   private original;
   @Output() cancelEvent = new EventEmitter();
 

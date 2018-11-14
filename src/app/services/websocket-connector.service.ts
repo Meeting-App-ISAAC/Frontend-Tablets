@@ -11,6 +11,8 @@ export class WebsocketConnectorService {
   constructor() {
     this.connect();
   }
+  public reservationUpdate = new EventEmitter();
+  public settingsUpdate = new EventEmitter();
 
   private connect() : void{
     try {
@@ -19,13 +21,17 @@ export class WebsocketConnectorService {
         this.tw = new WebSocket("ws://"+location.hostname+":8090/reservation/");
         this.tw.onmessage = (message) => {
           console.log(JSON.parse(message.data));
-          this.reservationUpdate.emit(JSON.parse(message.data));
+          let data = JSON.parse(message.data);
+          if(data.type === "reservation"){
+            this.reservationUpdate.emit(data);
+          }
+          if(data.type === "update"){
+            this.settingsUpdate.emit(data)
+          }
         };
         this.tw.onopen = () => {
           console.log("OPEN!");
           this.connected = true;
-          let temp = {"roomId": 1};
-          this.tw.send(JSON.stringify(temp));
         };
         this.tw.onerror = () => {
           this.connect();
@@ -38,7 +44,7 @@ export class WebsocketConnectorService {
       setTimeout(() => this.connect(), 100);
     }
   }
-  public reservationUpdate = new EventEmitter();
+
 
 
 }
