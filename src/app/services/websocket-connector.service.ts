@@ -20,13 +20,12 @@ export class WebsocketConnectorService {
         this.connected = false;
         this.tw = new WebSocket("ws://"+location.hostname+":8090/reservation/");
         this.tw.onmessage = (message) => {
-          console.log(JSON.parse(message.data));
-          let data = JSON.parse(message.data);
-          if(data.type === "reservation"){
-            this.reservationUpdate.emit(data);
-          }
-          if(data.type === "update"){
+          console.log(JSON.parse(message.data).messageData);
+          let data = JSON.parse(message.data).messageData;
+          if(!!data.type && data.type === "update"){
             this.settingsUpdate.emit(data)
+          } else {
+            this.reservationUpdate.emit(data);
           }
         };
         this.tw.onopen = () => {

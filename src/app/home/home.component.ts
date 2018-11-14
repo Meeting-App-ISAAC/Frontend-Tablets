@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
       for(let i = 0; i < data.length; i++){
-        if(data[i].roomId === this.roomId){
+        if(data[i].id === this.roomId){
           this.localReservations = data[i].reservations;
         }
       }

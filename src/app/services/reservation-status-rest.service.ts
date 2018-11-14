@@ -30,6 +30,7 @@ export class ReservationStatusRESTService {
   }
 
   public sendReservationEnded(reservation : ReservationModel) {
+    debugger;
     const data = {"roomId" : 1, "reservationId" : reservation.id};
     const httpOptions = {
       headers: new HttpHeaders({
@@ -69,6 +70,7 @@ export class ReservationStatusRESTService {
       });
   }
   public sendReservationExtend(reservation : ReservationModel, minutes : number) : Observable<object>{
+    debugger;
     const data = {"roomId" : 1, "reservationId" : reservation.id, minutes : minutes};
     const httpOptions = {
       headers: new HttpHeaders({
