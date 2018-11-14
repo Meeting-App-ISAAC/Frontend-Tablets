@@ -1,0 +1,63 @@
+#left{
+  margin: 31px 0 0 30px;
+  color: white;
+  width: 188px;
+  float: left;
+}
+
+#left div{
+  padding-top: 3px;
+  font-family: "Open Sans";
+  font-size: 14px;
+  line-height: 19px;
+}
+
+#left #floor{
+  background: url("../../../assets/floor.svg") no-repeat left center;
+  padding-left: 17px;
+  display: inline-block;
+}
+
+#left #capacity{
+  background: url("../../../assets/persons.svg") no-repeat left center;
+  padding-left: 19px;
+  display: inline-block;
+  margin-left: 14px;
+}
+
+#left h2{
+  height: 47px;
+  width: 188px;
+  color: rgba(255,255,255,1);
+  font-family: "Rockwell Std";
+  font-size: 48px;
+  line-height: 58px;
+}
+
+#right{
+  float: right;
+  color: white;
+  font-family: "Open Sans";
+  font-size: 35px;
+  font-weight: 300;
+  line-height: 47px;
+  text-align: right;
+  margin: 26px 30px 0 0 ;
+}
+
+#logo{
+  background-image: url("../../../assets/isaacLogo.svg");
+  height: 25px;
+  width: 86px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
+main {
+  background-color: darkgreen;
+  width: calc(100% - 261px);
+  float: left;
+  height: 100vh;
+  position: relative;
+}

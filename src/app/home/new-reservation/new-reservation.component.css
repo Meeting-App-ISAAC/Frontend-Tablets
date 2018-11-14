@@ -1,0 +1,70 @@
+ .time{
+  height: 40px;
+  width: 114px;
+  border: 2px solid rgba(102,102,102,1);
+  border-radius: 2px;
+  background-color: rgba(255,255,255,1);
+  margin-right: 7px;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+}
+ #timeButtons{
+  margin: 23px 0 58px 0;
+  width: 512px;
+}
+ #submitButton, #cancelButton{
+   height: 40px;
+   border-radius: 2px;
+   font-family: "Rockwell Std";
+   font-size: 20px;
+   line-height: 24px;
+   text-align: center;
+   margin-left: 22px;
+   margin-top: 210px;
+ }
+ #submitButton{
+
+   width: 198px;
+   margin-left: 0;
+   background-color: rgba(0,157,220,1);
+   color: rgba(255,255,255,1);
+
+ }
+
+ #cancelButton{
+   width: 115px;
+   color: rgba(102,102,102,1);
+   border: 2px solid rgba(102,102,102,1);
+ }
+ .selected{
+  border: 2px solid rgba(0,157,220,1);
+  color: rgba(0,157,220,1);
+}
+ button:disabled,
+ button[disabled]{
+  opacity: 0.3;
+}
+.full-width{
+  width: 100%;
+}
+h1{
+  color: rgba(102,102,102,1);
+  font-family: "Rockwell Std";
+  font-size: 48px;
+  line-height: 58px;
+}
+#container{
+  margin: 30px auto;
+  width: 480px;
+}
+p{
+  color: rgba(102,102,102,1);
+  font-family: "Open Sans";
+  font-size: 16px;
+  line-height: 22px;
+  margin-top: 37px;
+}
+.error{
+  color: red;
+}
