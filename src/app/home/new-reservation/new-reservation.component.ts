@@ -107,8 +107,8 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
 
   private getUserId(): number {
 
-    for (var i = 0; i < this.original.length; i++) {
-      if (this.original[i].name === this.myControl.value) {
+    for (let i = 0; i < this.original.length; i++) {
+      if (this.original[i].name.trim() === this.myControl.value.trim()) {
         return this.original[i].id;
       }
     }
