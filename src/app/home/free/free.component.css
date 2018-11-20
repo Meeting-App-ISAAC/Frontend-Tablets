@@ -26,7 +26,7 @@ sub{
 
   color: rgba(0,157,220,1);
   font-family: "Rockwell Std";
-  font-size: 20px;
+  font-size: 18px;
 }
 #container{
   position: absolute;
