@@ -42,9 +42,11 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
       const room : MeetingRoom = this.roomData[i];
       const data = FreeMeetingRoomComponent.GetFreeUntilDate(room);
       if(data.isFree){
-        let date = new Date();
-        date.setHours(0, 0, data.until * 60 * 60, 0);
-
+        let date = null;
+        if(data.until !== null) {
+          date = new Date();
+          date.setHours(0, 0, data.until * 60 * 60, 0);
+        }
         outcome.push(
           {
             name: room.name,
@@ -52,7 +54,7 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
             location: room.location,
             id: room.id,
             free: date,
-            diff: (data.until - HomeComponent.caluculateDoubleHours()) * 60
+            diff: data.until === null ? 24 * 60 : (data.until - HomeComponent.caluculateDoubleHours()) * 60
           }
         )
       }
@@ -62,8 +64,8 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
 
   private static GetFreeUntilDate(room) : any{
     let result = {
-      "isFree" : false,
-      "until" : 24
+      "isFree" : true,
+      "until" : null
     };
 
 
