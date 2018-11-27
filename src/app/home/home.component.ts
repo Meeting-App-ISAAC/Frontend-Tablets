@@ -3,6 +3,7 @@ import {WebsocketConnectorService} from '../services/websocket-connector.service
 import { ReservationModel} from '../interfaces/ReservationModel';
 import {ReservationStatusRESTService} from '../services/reservation-status-rest.service';
 import {LocalDeviceDataService} from '../services/local-device-data.service';
+import {CurrentRoomSettingsService} from '../services/current-room-settings.service';
 
 @Component({
   selector: 'app-home',
@@ -15,37 +16,58 @@ export class HomeComponent implements OnInit {
   public localReservations: ReservationModel[] = [];
   public roomsCollection = [];
 
-  public selectRoom : boolean = false;
-
-  public makeReservationOnRoomId : number = 0;
-  public makeReservation: boolean = false;
 
   public currentDate : Date = new Date();
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
   @Input() textColor : string = "white";
 
+  public displayScreen = "free";
+
+  private calculateDisplayScreen(){
+    if(!!this.currentReservation){
+      if(this.currentReservation.hasStarted){
+        this.displayScreen = "occupied";
+      } else {
+        this.displayScreen = "reserved";
+      }
+    } else {
+      this.displayScreen = "free";
+    }
+  }
+
   private setDate() : void{
     setInterval(() => {
       this.currentDate = new Date();
     }, 1000);
   }
-  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, private data : LocalDeviceDataService) {
+
+
+
+  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, private data : LocalDeviceDataService, public roomSetting : CurrentRoomSettingsService) {
     this.roomId = this.data.id;
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
-      for(let i = 0; i < data.length; i++){
-        if(data[i].id === this.roomId){
-          this.localReservations = data[i].reservations;
-          break;
-        }
-      }
       this.roomsCollection = data;
       console.log("DATA!!", this.roomsCollection);
+      this.setLocalRoomInformation();
+      this.calculateDisplayScreen();
     });
     this.setDate();
   }
 
+  private setLocalRoomInformation(){
+    for(let i = 0; i < this.roomsCollection.length; i++){
+      if(this.roomsCollection[i].id === this.roomId){
+        this.localReservations = this.roomsCollection[i].reservations;
+        this.roomSetting.capacity = this.roomsCollection[i].capacity;
+        this.roomSetting.id = this.roomsCollection[i].id;
+        this.roomSetting.location = this.roomsCollection[i].location;
+        this.roomSetting.name = this.roomsCollection[i].name;
+        break;
+      }
+    }
+  }
   public get nextReservation() : ReservationModel{
     return this.localReservations.find(x => x.startHour >  HomeComponent.caluculateDoubleHours());
   }
@@ -59,25 +81,23 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  public showReservationPanel(id : number) : void{
-    this.makeReservationOnRoomId = id;
-    this.makeReservation = true;
-    this.selectRoom = false;
+  public showReservationPanel() : void{
+    this.displayScreen = "new reservation";
   }
 
+  public showReservationPanelForOther(id : number){
+    this.roomId = id;
+    this.displayScreen = "new reservation mimic";
+    this.setLocalRoomInformation();
+
+  }
   public showSelectRoom() {
-    this.selectRoom = true;
+    this.displayScreen = "room select";
   }
   public hideSelectRoom(){
-    this.selectRoom = false;
+    this.calculateDisplayScreen();
   }
-  public get isReserved() : boolean{
-    if( !(this.currentReservation === null || this.currentReservation === undefined)){
-      this.makeReservation = false;
-      return true;
-    }
-    return false;
-  }
+
 
   public setOccupied(){
     this.rest.sendReservationStarted(this.currentReservation);
@@ -114,7 +134,10 @@ export class HomeComponent implements OnInit {
   }
 
   public closeReservationPanel() : void{
-    this.makeReservation = false;
+    if(this.displayScreen === 'new reservation mimic'){
+      this.roomId = this.data.id;
+    }
+    this.calculateDisplayScreen();
   }
 
   ngOnInit() {

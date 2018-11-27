@@ -5,6 +5,7 @@ import {map, startWith} from 'rxjs/internal/operators';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {DurationButtonUser} from '../DurationButtonUser';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material';
+import {CurrentRoomSettingsService} from '../../services/current-room-settings.service';
 
 @Component({
   selector: 'app-new-reservation',
@@ -31,7 +32,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
     this.timeoutTimer = setTimeout(() => this.cancel(), 1000 * 60 * 5);
   }
 
-  public constructor(private rest: ReservationStatusRESTService) {
+  public constructor(private rest: ReservationStatusRESTService, public setting : CurrentRoomSettingsService) {
     super();
   }
 
