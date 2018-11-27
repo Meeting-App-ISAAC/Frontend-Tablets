@@ -1,4 +1,4 @@
-<app-free-meeting-room></app-free-meeting-room><!--
+<app-free-meeting-room [roomData]="roomsCollection" ></app-free-meeting-room><!--
 <app-no-connection *ngIf="!websocket.connected"></app-no-connection>
 <app-new-reservation *ngIf="websocket.connected && makeReservation && !(isReserved || (!!currentReservation && currentReservation.hasStarted))" (cancelEvent)="closeReservationPanel()" [currentReservation]="currentReservation" [nextReservation]="nextReservation"></app-new-reservation>
 <app-reserved *ngIf="websocket.connected && isReserved && !currentReservation.hasStarted" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved>

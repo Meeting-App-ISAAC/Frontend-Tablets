@@ -20,9 +20,8 @@ export class WebsocketConnectorService {
         this.connected = false;
         this.tw = new WebSocket("ws://"+location.hostname+":8090/reservation/");
         this.tw.onmessage = (message) => {
-          console.log(JSON.parse(message.data).messageData);
           let data = JSON.parse(message.data).messageData;
-          if(!!data.type && data.type === "update"){
+          if(!!data.type && data.type === "settings"){
             this.settingsUpdate.emit(data)
           } else {
             this.reservationUpdate.emit(data);

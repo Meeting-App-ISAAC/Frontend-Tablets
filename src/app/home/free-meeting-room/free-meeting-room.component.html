@@ -5,7 +5,7 @@
       <div class="roomWrapper" *ngFor="let item of meetingRooms">
         <h4>{{item.name}}</h4>
         <ul>
-          <li class="floor">{{item.floor}}</li>
+          <li class="floor">{{item.location}}</li>
           <li class="capacity">{{item.capacity}} persons</li>
           <li class="free" *ngIf="!!item.free">until {{item.free | date:"H:mm"}}</li>
         </ul>

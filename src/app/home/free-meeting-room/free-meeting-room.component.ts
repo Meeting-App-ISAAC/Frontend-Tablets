@@ -6,15 +6,8 @@ import {ReservationStatusRESTService} from '../../services/reservation-status-re
   templateUrl: './free-meeting-room.component.html',
   styleUrls: ['./free-meeting-room.component.css']
 })
-export class FreeMeetingRoomComponent implements OnInit, AfterViewInit, OnChanges {
-  ngAfterViewInit(): void {
-    this.rest.getRoomsMetaData().subscribe(
-      (val) => {
-        this.roomMetaData = JSON.parse(val.toString());
-      },
-      response => {},
-      () => {});
-  }
+export class FreeMeetingRoomComponent implements OnInit, OnChanges {
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if(!!changes.roomData){
@@ -22,7 +15,6 @@ export class FreeMeetingRoomComponent implements OnInit, AfterViewInit, OnChange
     }
   }
 
-  public roomMetaData : MeetingRoom[] = [];
   public meetingRooms = [];
 
   @Input() roomData;
@@ -30,15 +22,16 @@ export class FreeMeetingRoomComponent implements OnInit, AfterViewInit, OnChange
   constructor( private rest: ReservationStatusRESTService ) {
   }
 
-  public static bookRoom(id : number) : void{
+  public bookRoom(id : number) : void{
     alert(id);
   }
 
   private CalculateFreeRooms() : void{
     this.meetingRooms = [];
-    for(let i = 0; i < this.roomMetaData.length; i++){
-      const room : MeetingRoom = this.roomMetaData[i];
-      const data = this.GetFreeUntilDate(room.id);
+    debugger;
+    for(let i = 0; i < this.roomData.length; i++){
+      const room : MeetingRoom = this.roomData[i];
+      const data = FreeMeetingRoomComponent.GetFreeUntilDate(room);
       if(data.isFree){
         let date = new Date();
         date.setSeconds(data.until * 60 * 60);
@@ -55,28 +48,26 @@ export class FreeMeetingRoomComponent implements OnInit, AfterViewInit, OnChange
     }
   }
 
-  private GetFreeUntilDate(roomId : number) : any{
+  private static GetFreeUntilDate(room) : any{
     let result = {
       "isFree" : false,
       "until" : 24
     };
 
-    for(let i = 0; i < this.roomData.length; i++){
-      const room = this.roomData[i];
-      if(room.id === roomId){
-        for(let y = 0; y < room.reservations; y++){
-          const reservation = room.reservations[y];
-          if(reservation.startHour < new Date().getHours() && (reservation.startHour + reservation.length) > new Date().getHours() ){
-            result.isFree = false;
-            break;
-          }
-          if(reservation.startHour > new Date().getHours() && reservation.startHour < result.until){
-            result.isFree = true;
-            result.until = reservation.startHour;
-          }
+
+      for(let y = 0; y < room.reservations.length; y++){
+        const reservation = room.reservations[y];
+        if(reservation.startHour < new Date().getHours() && (reservation.startHour + reservation.length) > new Date().getHours() ){
+          result.isFree = false;
+          break;
+        }
+        if(reservation.startHour > new Date().getHours() && reservation.startHour < result.until){
+          result.isFree = true;
+          result.until = reservation.startHour;
         }
       }
-    }
+
+
     return result;
   }
 

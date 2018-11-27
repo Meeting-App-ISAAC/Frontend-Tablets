@@ -12,7 +12,7 @@ export class ReservationStatusRESTService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        "Authorization" : 'basic L8R50giu4k84E2leTAYrH3MNC9EjMChsZ4nutpXx5wqFEpAA71fELos3fqCwyXUKvv83rjOYWXd5djDnEDIV1JG30NVo7weXcFkx'
+        "Authorization" : 'basic XjmVM566tQ3YK5Tf9jgfHQmerlFTDHdY8FLRDR5YEaR9ELUZtMJ6Fm2ig5gRmOQyOixdc7KHAj5lBGJwlTKYfgOJ1EiomWPWR3AL'
       })
     };
     return httpOptions;

@@ -30,9 +30,11 @@ export class HomeComponent implements OnInit {
       for(let i = 0; i < data.length; i++){
         if(data[i].id === this.roomId){
           this.localReservations = data[i].reservations;
+          break;
         }
       }
       this.roomsCollection = data;
+      console.log("DATA!!", this.roomsCollection);
     });
     this.setDate();
   }
