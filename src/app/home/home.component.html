@@ -1,10 +1,11 @@
-<app-free-meeting-room [roomData]="roomsCollection" ></app-free-meeting-room><!--
 <app-no-connection *ngIf="!websocket.connected"></app-no-connection>
-<app-new-reservation *ngIf="websocket.connected && makeReservation && !(isReserved || (!!currentReservation && currentReservation.hasStarted))" (cancelEvent)="closeReservationPanel()" [currentReservation]="currentReservation" [nextReservation]="nextReservation"></app-new-reservation>
-<app-reserved *ngIf="websocket.connected && isReserved && !currentReservation.hasStarted" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved>
-<app-occupied *ngIf="websocket.connected && isReserved && currentReservation.hasStarted" [currentReservation]="currentReservation" [nextReservation]="nextReservation" [until]="getReservationUntil" [title]="getReservationTitle" (end)="endCurrentReservation()"></app-occupied>
-<app-free *ngIf="websocket.connected && !makeReservation && !isReserved" [until]="nextReservationDate" (reservationEvent)="showReservationPanel()"></app-free>
--->
+<app-free-meeting-room *ngIf="websocket.connected && selectRoom" [roomData]="roomsCollection" (roomSelected)="showReservationPanel($event)" (cancel)="hideSelectRoom()" ></app-free-meeting-room>
+
+<app-new-reservation *ngIf="websocket.connected && !selectRoom && makeReservation && !(isReserved || (!!currentReservation && currentReservation.hasStarted))" (cancelEvent)="closeReservationPanel()" [roomSelectedId]="makeReservationOnRoomId" [currentReservation]="currentReservation" [nextReservation]="nextReservation"></app-new-reservation>
+<app-reserved *ngIf="websocket.connected && !selectRoom && isReserved && !currentReservation.hasStarted" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved>
+<app-occupied *ngIf="websocket.connected && !selectRoom && isReserved && currentReservation.hasStarted" [currentReservation]="currentReservation" [nextReservation]="nextReservation" [until]="getReservationUntil" [title]="getReservationTitle" (end)="endCurrentReservation()" (findRoom)="showSelectRoom()"></app-occupied>
+<app-free *ngIf="websocket.connected && !selectRoom && !makeReservation && !isReserved" [until]="nextReservationDate" (reservationEvent)="showReservationPanel(roomId)"></app-free>
+
 <aside>
   <h3>{{currentDate | date:"EEEE MMMM d" }}th</h3>
   <div id="scrollbar">

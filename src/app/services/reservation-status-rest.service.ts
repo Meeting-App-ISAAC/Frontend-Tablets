@@ -50,8 +50,8 @@ export class ReservationStatusRESTService {
       });
   }
 
-  public createReservation(userId : number, duration : number) {
-    const data = {"roomId" : 1, "userId" : userId, "duration" : duration};
+  public createReservation(userId : number, duration : number, roomId: number) {
+    const data = {"roomId" : roomId, "userId" : userId, "duration" : duration};
     const httpOptions = ReservationStatusRESTService.getHttpOptions();
     this.http.post("http://"+location.hostname+":8090/api/create", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {

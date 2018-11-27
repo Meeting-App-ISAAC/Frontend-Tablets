@@ -25,6 +25,7 @@
     <h1>OCCUPIED</h1>
     <div id="by"><i class="personIcon"></i> By {{title}}</div>
     <sub>Until {{until | date:"H:mm"}}</sub>
+    <button id="use" (click)="findRoom.emit()">FIND A FREE ROOM</button>
   </div>
 
   <div id="buttonGroup">

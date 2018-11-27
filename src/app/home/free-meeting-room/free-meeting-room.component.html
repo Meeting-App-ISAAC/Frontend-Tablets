@@ -9,10 +9,12 @@
           <li class="capacity">{{item.capacity}} persons</li>
           <li class="free" *ngIf="!!item.free">until {{item.free | date:"H:mm"}}</li>
         </ul>
-        <button class="submit" (click)="bookRoom(item.id)">RESERVE</button>
+        <button class="submit" [disabled]="item.diff <= websocket.settings.maxReservationWindow" (click)="bookRoom(item.id)">RESERVE</button>
       </div>
-
+      <div class="roomWrapper error" *ngIf="meetingRooms.length === 0">
+        We're sorry. There are no free rooms.
+      </div>
     </div>
-    <button id="closeButton">CANCEL</button>
+    <button id="closeButton" (click)="cancelEvent()">CANCEL</button>
   </div>
 </app-wrapper>

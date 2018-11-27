@@ -14,7 +14,7 @@ export class OccupiedComponent extends DurationButtonUser implements AfterViewIn
   @Input() until : Date;
   @Input() title : String;
   @Output() end = new EventEmitter();
-
+  @Output() findRoom = new EventEmitter();
   public showDialog : boolean =false;
   public error : boolean = false;
   public constructor(private rest : ReservationStatusRESTService){

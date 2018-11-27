@@ -34,7 +34,7 @@ h1{
   margin: 20px 0 40px 20px;
 }
 .floor, .capacity, .free{
-  padding-left: 17px;
+  padding-left: 20px;
   margin-left: 0;
   background: no-repeat left center;
   background-size: 12px;
@@ -82,3 +82,12 @@ li{
   background-color: transparent;
   margin-left: 20px;
 }
+.error{
+  color: red;
+  padding: 30px;
+}
+button:disabled,
+button[disabled]{
+  opacity: 0.3;
+}
+

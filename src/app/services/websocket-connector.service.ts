@@ -10,10 +10,11 @@ export class WebsocketConnectorService {
   public connected : boolean = false;
   constructor() {
     this.connect();
+    this.settings.maxReservationWindow = 20;
   }
   public reservationUpdate = new EventEmitter();
   public settingsUpdate = new EventEmitter();
-
+  public settings : any = {};
   private connect() : void{
     try {
       if(this.tw === null || this.tw.readyState === this.tw.CLOSING || this.tw.readyState === this.tw.CLOSED) {
@@ -23,6 +24,8 @@ export class WebsocketConnectorService {
           let data = JSON.parse(message.data).messageData;
           if(!!data.type && data.type === "settings"){
             this.settingsUpdate.emit(data)
+            this.settings = data;
+            console.log(data)
           } else {
             this.reservationUpdate.emit(data);
           }

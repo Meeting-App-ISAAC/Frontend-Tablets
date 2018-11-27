@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {WebsocketConnectorService} from '../services/websocket-connector.service';
 import { ReservationModel} from '../interfaces/ReservationModel';
 import {ReservationStatusRESTService} from '../services/reservation-status-rest.service';
+import {LocalDeviceDataService} from '../services/local-device-data.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,15 @@ import {ReservationStatusRESTService} from '../services/reservation-status-rest.
 })
 export class HomeComponent implements OnInit {
   public numbers: number[];
-  public roomId : number = 1;
+  public roomId : number = 0;
   public localReservations: ReservationModel[] = [];
   public roomsCollection = [];
+
+  public selectRoom : boolean = false;
+
+  public makeReservationOnRoomId : number = 0;
   public makeReservation: boolean = false;
+
   public currentDate : Date = new Date();
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
@@ -24,7 +30,8 @@ export class HomeComponent implements OnInit {
       this.currentDate = new Date();
     }, 1000);
   }
-  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService) {
+  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, private data : LocalDeviceDataService) {
+    this.roomId = this.data.id;
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
       for(let i = 0; i < data.length; i++){
@@ -52,8 +59,17 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  public showReservationPanel() : void{
+  public showReservationPanel(id : number) : void{
+    this.makeReservationOnRoomId = id;
     this.makeReservation = true;
+    this.selectRoom = false;
+  }
+
+  public showSelectRoom() {
+    this.selectRoom = true;
+  }
+  public hideSelectRoom(){
+    this.selectRoom = false;
   }
   public get isReserved() : boolean{
     if( !(this.currentReservation === null || this.currentReservation === undefined)){

@@ -68,3 +68,7 @@ p{
 .error{
   color: red;
 }
+ button:disabled,
+ button[disabled]{
+   opacity: 0.3;
+ }
