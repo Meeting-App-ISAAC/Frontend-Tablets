@@ -14,6 +14,7 @@ import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-b
 import {MatAutocomplete, MatAutocompleteModule, MatInput, MatInputModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NoConnectionComponent } from './home/no-connection/no-connection.component';
+import { FreeMeetingRoomComponent } from './home/free-meeting-room/free-meeting-room.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NoConnectionComponent } from './home/no-connection/no-connection.compon
     ReservedComponent,
     NewReservationComponent,
     NoConnectionComponent,
+    FreeMeetingRoomComponent,
   ],
   imports: [
     BrowserModule,

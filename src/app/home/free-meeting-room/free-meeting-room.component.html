@@ -1,0 +1,18 @@
+<app-wrapper [showName]="false" backgroundColor="rgba(0,157,220,1)">
+  <div id="container">
+    <h1>Free meeting rooms</h1>
+    <div id="roomContainer">
+      <div class="roomWrapper" *ngFor="let item of meetingRooms">
+        <h4>{{item.name}}</h4>
+        <ul>
+          <li class="floor">{{item.floor}}</li>
+          <li class="capacity">{{item.capacity}} persons</li>
+          <li class="free" *ngIf="!!item.free">until {{item.free | date:"H:mm"}}</li>
+        </ul>
+        <button class="submit" (click)="bookRoom(item.id)">RESERVE</button>
+      </div>
+
+    </div>
+    <button id="closeButton">CANCEL</button>
+  </div>
+</app-wrapper>
