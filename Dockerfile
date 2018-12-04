@@ -1,9 +1,10 @@
-FROM node:8
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app
-RUN npm cache clean
-RUN npm install
-COPY . /usr/src/app
-EXPOSE 4200
-CMD ["npm","start"]
+# Get latest nginx image 
+FROM nginx
+# Copy build into nginx image
+COPY ./dist/* /var/www
+# Copy nginx config file to default.conf
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# Run server
+# -g daemon off; is used so Docker can track the process properly,
+# otherwise the container will stop immediately after starting
+CMD ["nginx", "-g", "daemon off;"]
