@@ -25,11 +25,11 @@ pipeline {
         sh 'npm build --prod'
       }
     }
-    stage('Test') {
-      steps {
-        sh 'npm test'
-      }
-    }
+    // stage('Test') {
+    //   steps {
+    //     sh 'npm test'
+    //   }
+    // }
     stage('Deploy master') {
       when {
         branch 'master'
