@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   public displayScreen = "free";
 
   private calculateDisplayScreen(){
+    console.log(this.currentReservation);
     if(!!this.currentReservation){
       if(this.currentReservation.hasStarted){
         this.displayScreen = "occupied";
@@ -39,6 +40,9 @@ export class HomeComponent implements OnInit {
   private setDate() : void{
     setInterval(() => {
       this.currentDate = new Date();
+      if(this.displayScreen === "free" || this.displayScreen === "occupied") {
+        this.calculateDisplayScreen();
+      }
     }, 1000);
   }
 
