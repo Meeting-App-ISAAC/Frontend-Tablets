@@ -4,7 +4,7 @@
 <app-new-reservation *ngIf="websocket.connected  && displayScreen === 'new reservation' || displayScreen === 'new reservation mimic' " (cancelEvent)="closeReservationPanel()" [roomSelectedId]="roomId" [currentReservation]="currentReservation" [nextReservation]="nextReservation"></app-new-reservation>
 <app-reserved *ngIf="websocket.connected  && displayScreen === 'reserved'" [until]="getReservationUntil" [title]="getReservationTitle" (start)="setOccupied()"></app-reserved>
 <app-occupied *ngIf="websocket.connected  && displayScreen === 'occupied'" [currentReservation]="currentReservation" [nextReservation]="nextReservation" [until]="getReservationUntil" [title]="getReservationTitle" (end)="endCurrentReservation()" (findRoom)="showSelectRoom()"></app-occupied>
-<app-free *ngIf="websocket.connected  && displayScreen === 'free'" [until]="nextReservationDate" (reservationEvent)="showReservationPanel()"></app-free>
+<app-free *ngIf="websocket.connected  && displayScreen === 'free'" [until]="nextReservationDate" (reservationEvent)="showReservationPanel()" (findRoom)="showSelectRoom()"></app-free>
 
 <aside>
   <h3>{{currentDate | date:"EEEE MMMM d" }}th</h3>

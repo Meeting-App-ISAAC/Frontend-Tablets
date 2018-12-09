@@ -4,4 +4,5 @@
     <sub *ngIf="until !== null">Until {{until | date:"H:mm"}}</sub>
     <button id="use" (click)="use()" *ngIf="showButton === true">USE MEETING ROOM</button>
   </div>
+  <button id="freeRoom" (click)="findRoom.emit()">FIND A FREE ROOM</button>
 </app-wrapper>

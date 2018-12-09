@@ -1,5 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {EventListener} from '@angular/core/src/debug/debug_node';
+import {LocalDeviceDataService} from './local-device-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ export class WebsocketConnectorService {
 
   private tw : WebSocket = null;
   public connected : boolean = false;
-  constructor() {
+  constructor(private localSettings : LocalDeviceDataService) {
     this.connect();
     this.settings.maxReservationWindow = 20;
   }
@@ -32,6 +33,7 @@ export class WebsocketConnectorService {
         };
         this.tw.onopen = () => {
           console.log("OPEN!");
+          this.tw.send(this.localSettings.key);
           this.connected = true;
         };
         this.tw.onerror = () => {

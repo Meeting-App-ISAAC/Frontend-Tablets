@@ -35,3 +35,18 @@ sub{
   margin-top: -100px;
   text-align: center;
 }
+#freeRoom{
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  height: 40px;
+  width: 290px;
+  border: 2px solid rgba(255,255,255,1);
+  border-radius: 2px;
+  background-color: transparent;
+  color: rgba(255,255,255,1);
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+}

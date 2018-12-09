@@ -1,0 +1,22 @@
+<div id="bg">
+  <div id="container">
+  <div>
+    <mat-tab-group>
+      <mat-tab label="Room">
+        <h1> Config as room</h1>
+        <p class="main">Please provide the secret key.</p>
+        <p class="normal">The secret key can be made in the <code>roomdata.txt</code> file on the server</p>
+        <p class="error" *ngIf="roomFault">Unknown secret</p>
+        <input [(ngModel)]="roomKey">
+        <button (click)="connectAsRoom()">Connect</button>
+      </mat-tab>
+      <mat-tab label="Admin">
+        <h1> Config as admin</h1>
+        <p class="main">Please provide the <b>admin</b> password</p>
+        <input [(ngModel)]="adminPass">
+        <button (click)="connectAsAdmin()">Connect</button>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>
+</div>

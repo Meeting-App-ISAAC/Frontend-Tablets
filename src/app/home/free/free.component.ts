@@ -6,6 +6,7 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
   styleUrls: ['./free.component.css']
 })
 export class FreeComponent implements OnInit, OnChanges {
+  @Output() findRoom = new EventEmitter();
   ngOnInit(): void {
   }
   ngOnChanges(changes: SimpleChanges): void {

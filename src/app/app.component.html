@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-setup-screen *ngIf="!settings.loadedFromStorage"></app-setup-screen>
+<router-outlet *ngIf="settings.loadedFromStorage"></router-outlet>

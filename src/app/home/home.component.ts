@@ -24,8 +24,11 @@ export class HomeComponent implements OnInit {
 
   public displayScreen = "free";
 
-  private calculateDisplayScreen(){
-    console.log(this.currentReservation);
+  private calculateDisplayScreen(force = false){
+    if(this.displayScreen !== "free" && this.displayScreen !== "occupied" && this.displayScreen !== "reserved" && !force) {
+      return;
+    }
+    //console.log(this.currentReservation);
     if(!!this.currentReservation){
       if(this.currentReservation.hasStarted){
         this.displayScreen = "occupied";
@@ -40,10 +43,9 @@ export class HomeComponent implements OnInit {
   private setDate() : void{
     setInterval(() => {
       this.currentDate = new Date();
-      if(this.displayScreen === "free" || this.displayScreen === "occupied") {
         this.calculateDisplayScreen();
-      }
-    }, 1000);
+
+    }, 100);
   }
 
 
@@ -99,7 +101,7 @@ export class HomeComponent implements OnInit {
     this.displayScreen = "room select";
   }
   public hideSelectRoom(){
-    this.calculateDisplayScreen();
+    this.calculateDisplayScreen(true);
   }
 
 
@@ -141,7 +143,8 @@ export class HomeComponent implements OnInit {
     if(this.displayScreen === 'new reservation mimic'){
       this.roomId = this.data.id;
     }
-    this.calculateDisplayScreen();
+
+    this.calculateDisplayScreen(true);
   }
 
   ngOnInit() {

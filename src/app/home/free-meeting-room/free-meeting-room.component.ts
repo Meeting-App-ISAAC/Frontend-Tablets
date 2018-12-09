@@ -41,6 +41,7 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
     for(let i = 0; i < this.roomData.length; i++){
       const room : MeetingRoom = this.roomData[i];
       const data = FreeMeetingRoomComponent.GetFreeUntilDate(room);
+
       if(data.isFree){
         let date = null;
         if(data.until !== null) {
@@ -59,6 +60,7 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
         )
       }
     }
+
     this.meetingRooms = outcome;
   }
 
@@ -75,7 +77,7 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
           result.isFree = false;
           break;
         }
-        if(reservation.startHour > HomeComponent.caluculateDoubleHours() && reservation.startHour < result.until){
+        if(reservation.startHour > HomeComponent.caluculateDoubleHours() && reservation.startHour < result.until || result.until === null){
           result.isFree = true;
           result.until = reservation.startHour;
         }

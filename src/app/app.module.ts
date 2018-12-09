@@ -11,10 +11,11 @@ import { ReservedComponent } from './home/reserved/reserved.component';
 import {HttpClientModule} from '@angular/common/http';
 import { NewReservationComponent } from './home/new-reservation/new-reservation.component';
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatAutocomplete, MatAutocompleteModule, MatInput, MatInputModule} from '@angular/material';
+import {MatAutocomplete, MatAutocompleteModule, MatInput, MatInputModule, MatTabsModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NoConnectionComponent } from './home/no-connection/no-connection.component';
 import { FreeMeetingRoomComponent } from './home/free-meeting-room/free-meeting-room.component';
+import { SetupScreenComponent } from './setup-screen/setup-screen.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FreeMeetingRoomComponent } from './home/free-meeting-room/free-meeting-
     NewReservationComponent,
     NoConnectionComponent,
     FreeMeetingRoomComponent,
+    SetupScreenComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +37,7 @@ import { FreeMeetingRoomComponent } from './home/free-meeting-room/free-meeting-
     NoopAnimationsModule,
     MatInputModule,
     MatAutocompleteModule,
+    MatTabsModule,
     ReactiveFormsModule,
     FormsModule
   ],
