@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
 
 
 
+
   constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, public data : LocalDeviceDataService, public roomSetting : CurrentRoomSettingsService) {
     this.roomId = this.data.id;
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
@@ -102,7 +103,9 @@ export class HomeComponent implements OnInit {
     this.setDisplayScreenIfDifferent("new reservation");
   }
 
+  private cachedId = -1;
   public showReservationPanelForOther(id : number){
+    this.cachedId = this.roomId;
     this.roomId = id;
     this.setDisplayScreenIfDifferent("new reservation mimic");
     this.setLocalRoomInformation();
@@ -161,9 +164,9 @@ export class HomeComponent implements OnInit {
 
   public closeReservationPanel() : void{
     if(this.displayScreen === 'new reservation mimic'){
-      this.roomId = this.data.id;
+      this.roomId = this.roomSetting.id = this.cachedId;
     }
-
+    this.setLocalRoomInformation();
     this.calculateDisplayScreen(true);
   }
 
