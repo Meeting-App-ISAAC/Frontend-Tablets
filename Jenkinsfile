@@ -22,7 +22,7 @@ pipeline {
       steps {
         sh 'npm prune'
         sh 'npm install'
-        sh 'npm build --prod'
+        sh 'npm run production'
       }
     }
     // stage('Test') {
