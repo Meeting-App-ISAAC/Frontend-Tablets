@@ -16,7 +16,8 @@
 </body>
 <script>
   document.getElementsByTagName("body")[0].onclick = function() {
-    //document.documentElement.webkitRequestFullscreen();
+    if(!!document.documentElement.webkitRequestFullScreen){document.documentElement.webkitRequestFullscreen();}
+    document.documentElement.requestFullscreen();
   }
 </script>
 </html>
