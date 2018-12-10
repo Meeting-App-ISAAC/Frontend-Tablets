@@ -9,9 +9,11 @@ import {ReservationStatusRESTService} from '../services/reservation-status-rest.
 })
 export class SetupScreenComponent implements OnInit {
 
+
   public adminPass;
   public roomKey;
   public roomFault: boolean = false;
+  public adminFault : boolean = false;
   constructor(private settings : LocalDeviceDataService, private http : ReservationStatusRESTService) { }
 
   ngOnInit() {
@@ -36,6 +38,23 @@ export class SetupScreenComponent implements OnInit {
       });
   }
   public connectAsAdmin(){
-    alert(this.roomKey);
+    this.http.getAdminGranted(this.adminPass).subscribe(
+      (val : any) => {
+        this.adminFault = !!val.error;
+        if(!this.adminFault){
+          this.settings.key = this.adminPass;
+          this.settings.id = -1;
+          this.settings.showCalendar = false;
+          this.settings.isAdmin = true;
+          this.settings.save();
+          location.reload();
+        }
+      },
+      response => {
+        //POST call in error
+      },
+      () => {
+        //The POST observable is now completed
+      });
   }
 }

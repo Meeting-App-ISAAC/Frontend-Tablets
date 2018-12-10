@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {HomeComponent} from '../home.component';
 import {WebsocketConnectorService} from '../../services/websocket-connector.service';
+import {LocalDeviceDataService} from '../../services/local-device-data.service';
 
 @Component({
   selector: 'app-free-meeting-room',
@@ -26,7 +27,7 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
   @Output() roomSelected = new EventEmitter();
   @Output() cancel = new EventEmitter();
 
-  constructor( private rest: ReservationStatusRESTService, public websocket :  WebsocketConnectorService ) {
+  constructor( private rest: ReservationStatusRESTService, public websocket :  WebsocketConnectorService, public settings : LocalDeviceDataService) {
   }
 
   public bookRoom(id : number) : void{

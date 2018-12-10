@@ -89,4 +89,9 @@ export class ReservationStatusRESTService {
     return this.http.get("http://"+location.hostname+":8090/config/roomInfo?key="+key, httpOptions);
   }
 
+  public getAdminGranted(pass: String) : Observable<object>{
+    const httpOptions = this.getHttpOptions();
+    return this.http.get("http://"+location.hostname+":8090/config/adminInfo?pass="+pass, httpOptions);
+  }
+
 }

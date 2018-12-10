@@ -13,6 +13,7 @@
       <mat-tab label="Admin">
         <h1> Config as admin</h1>
         <p class="main">Please provide the <b>admin</b> password</p>
+        <p class="error" *ngIf="adminFault">Unknown secret</p>
         <input [(ngModel)]="adminPass">
         <button (click)="connectAsAdmin()">Connect</button>
       </mat-tab>

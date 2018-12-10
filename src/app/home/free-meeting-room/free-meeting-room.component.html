@@ -15,6 +15,6 @@
         We're sorry. There are no free rooms.
       </div>
     </div>
-    <button id="closeButton" (click)="cancelEvent()">CANCEL</button>
+    <button *ngIf="!settings.isAdmin" id="closeButton" (click)="cancelEvent()">CANCEL</button>
   </div>
 </app-wrapper>
