@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
       this.currentDate = new Date();
         this.calculateDisplayScreen();
 
-    }, 100);
+    }, 500);
   }
 
 
@@ -91,7 +91,9 @@ export class HomeComponent implements OnInit {
     this.displayScreen = "new reservation";
   }
 
+  private cachedId = -1;
   public showReservationPanelForOther(id : number){
+    this.cachedId = this.roomId;
     this.roomId = id;
     this.displayScreen = "new reservation mimic";
     this.setLocalRoomInformation();
@@ -141,9 +143,9 @@ export class HomeComponent implements OnInit {
 
   public closeReservationPanel() : void{
     if(this.displayScreen === 'new reservation mimic'){
-      this.roomId = this.data.id;
+      this.roomId = this.roomSetting.id = this.cachedId;
     }
-
+    this.setLocalRoomInformation();
     this.calculateDisplayScreen(true);
   }
 
