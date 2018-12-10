@@ -138,7 +138,7 @@ export class HomeComponent implements OnInit {
   }
 
   public static caluculateDoubleHours() : number{
-    return new Date().getHours() + new Date().getMinutes() / 60 + new Date().getSeconds() / 3600;
+    return new Date().getHours() + new Date().getMinutes() / 60 + (new Date().getSeconds() + 3) / 3600;
   }
   private calculateCurrentReservation() {
 
