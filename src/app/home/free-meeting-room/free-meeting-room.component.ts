@@ -77,7 +77,7 @@ export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewIni
           result.isFree = false;
           break;
         }
-        if(reservation.startHour > HomeComponent.caluculateDoubleHours() && reservation.startHour < result.until || result.until === null){
+        if(reservation.startHour > HomeComponent.caluculateDoubleHours() && (reservation.startHour + reservation.length) > HomeComponent.caluculateDoubleHours() && reservation.startHour < result.until || result.until === null){
           result.isFree = true;
           result.until = reservation.startHour;
         }

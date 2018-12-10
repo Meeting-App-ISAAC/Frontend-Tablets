@@ -14,6 +14,8 @@ export class LocalDeviceDataService {
   public id: number = -1;
   public key: string = "";
   public loadedFromStorage : boolean = false;
+  public showCalendar : boolean = true;
+  public isAdmin : boolean = false;
 
   save() {
     localStorage.setItem("id", this.id.toString());

@@ -24,33 +24,34 @@ export class HomeComponent implements OnInit {
 
   public displayScreen = "free";
 
+  private calculateReservations(){
+    this.calculateCurrentReservation();
+    this.calculateNextReservation();
+  }
   private calculateDisplayScreen(force = false){
     if(this.displayScreen !== "free" && this.displayScreen !== "occupied" && this.displayScreen !== "reserved" && !force) {
+      return;
+    }
+    if(this.data.isAdmin){
+      this.showSelectRoom();
       return;
     }
     //console.log(this.currentReservation);
     if(!!this.currentReservation){
       if(this.currentReservation.hasStarted){
-        this.displayScreen = "occupied";
+        this.setDisplayScreenIfDifferent("occupied");
       } else {
-        this.displayScreen = "reserved";
+        this.setDisplayScreenIfDifferent("reserved");
       }
     } else {
-      this.displayScreen = "free";
+      this.setDisplayScreenIfDifferent("free");
     }
   }
 
-  private setDate() : void{
-    setInterval(() => {
-      this.currentDate = new Date();
-        this.calculateDisplayScreen();
-
-    }, 100);
-  }
 
 
 
-  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, private data : LocalDeviceDataService, public roomSetting : CurrentRoomSettingsService) {
+  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, public data : LocalDeviceDataService, public roomSetting : CurrentRoomSettingsService) {
     this.roomId = this.data.id;
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
@@ -59,7 +60,6 @@ export class HomeComponent implements OnInit {
       this.setLocalRoomInformation();
       this.calculateDisplayScreen();
     });
-    this.setDate();
   }
 
   private setLocalRoomInformation(){
@@ -73,10 +73,21 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+    this.calculateReservations();
   }
-  public get nextReservation() : ReservationModel{
-    return this.localReservations.find(x => x.startHour >  HomeComponent.caluculateDoubleHours());
+  private static reservationDiffer(first : ReservationModel, second : ReservationModel) : boolean{
+    return ((!!first && !second) || (!first  && !!second) || (!!first && !!second && (first.id != second.id || first.hasStarted != second.hasStarted || first.startHour != second.startHour || first.title != second.title || first.length != second.length )));
   }
+  private calculateNextReservation() {
+    const found = this.localReservations.find(x => x.startHour >  HomeComponent.caluculateDoubleHours());
+
+    if(HomeComponent.reservationDiffer(this.nextReservation, found)){
+      console.log("next has been changed!");
+      this.nextReservation = found;
+    }
+  }
+  public nextReservation : ReservationModel = undefined;
+
   public get nextReservationDate() : Date{
     const res = this.nextReservation;
     if(res === undefined){
@@ -88,18 +99,28 @@ export class HomeComponent implements OnInit {
   }
 
   public showReservationPanel() : void{
-    this.displayScreen = "new reservation";
+    this.setDisplayScreenIfDifferent("new reservation");
   }
 
   public showReservationPanelForOther(id : number){
     this.roomId = id;
-    this.displayScreen = "new reservation mimic";
+    this.setDisplayScreenIfDifferent("new reservation mimic");
     this.setLocalRoomInformation();
 
   }
   public showSelectRoom() {
-    this.displayScreen = "room select";
+    if(this.data.isAdmin){
+      this.data.showCalendar = false;
+    }
+    this.setDisplayScreenIfDifferent("room select");
   }
+
+  private setDisplayScreenIfDifferent(value : string){
+    if(this.displayScreen != value){
+      this.displayScreen = value;
+    }
+}
+
   public hideSelectRoom(){
     this.calculateDisplayScreen(true);
   }
@@ -116,10 +137,15 @@ export class HomeComponent implements OnInit {
   public static caluculateDoubleHours() : number{
     return new Date().getHours() + new Date().getMinutes() / 60 + new Date().getSeconds() / 3600;
   }
+  private calculateCurrentReservation() {
 
-  public get currentReservation() : ReservationModel{
-    return this.localReservations.find(x => x.startHour <= HomeComponent.caluculateDoubleHours() && x.startHour + x.length > HomeComponent.caluculateDoubleHours());
+    const found = this.localReservations.find(x => x.startHour <= HomeComponent.caluculateDoubleHours() && x.startHour + x.length > HomeComponent.caluculateDoubleHours());
+    if(HomeComponent.reservationDiffer(this.currentReservation, found)){
+      console.log("current has been changed!");
+      this.currentReservation = found;
+    }
   }
+  public currentReservation : ReservationModel;
 
   public get getReservationUntil() : Date{
     const res = this.currentReservation;
@@ -131,13 +157,7 @@ export class HomeComponent implements OnInit {
     return result;
   }
 
-  public get getReservationTitle() : String{
-    const res = this.currentReservation;
-    if(res === undefined){
-      return "";
-    }
-    return res.title;
-  }
+
 
   public closeReservationPanel() : void{
     if(this.displayScreen === 'new reservation mimic'){
@@ -148,6 +168,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  public ngDoCheck(){
+    this.currentDate = new Date();
+    this.calculateReservations();
+    this.calculateDisplayScreen();
   }
 
 }

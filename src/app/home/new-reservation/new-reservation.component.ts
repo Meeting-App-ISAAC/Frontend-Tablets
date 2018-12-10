@@ -6,6 +6,7 @@ import {ReservationStatusRESTService} from '../../services/reservation-status-re
 import {DurationButtonUser} from '../DurationButtonUser';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material';
 import {CurrentRoomSettingsService} from '../../services/current-room-settings.service';
+import {LocalDeviceDataService} from '../../services/local-device-data.service';
 
 @Component({
   selector: 'app-new-reservation',
@@ -22,6 +23,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
     this.nameFoundError = false;
     this.resetTimer();
     this.timeButtonSelected = 0;
+    this.data.showCalendar = true;
     this.myControl.setValue(null);
     setTimeout(() => this.populateWithNames(),1);
   }
@@ -32,7 +34,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
     this.timeoutTimer = setTimeout(() => this.cancel(), 1000 * 60 * 5);
   }
 
-  public constructor(private rest: ReservationStatusRESTService, public setting : CurrentRoomSettingsService) {
+  public constructor(private rest: ReservationStatusRESTService, public setting : CurrentRoomSettingsService, public data : LocalDeviceDataService) {
     super();
   }
 

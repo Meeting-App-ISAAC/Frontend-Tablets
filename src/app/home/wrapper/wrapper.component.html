@@ -1,4 +1,4 @@
-<main [style.backgroundColor]="backgroundColor">
+<main [style.backgroundColor]="backgroundColor" [style.width]="!data.showCalendar ? '100%' : '' ">
   <header>
     <div id="left" *ngIf="showName">
       <h2>{{ setting.name }}</h2>

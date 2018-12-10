@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CurrentRoomSettingsService} from '../../services/current-room-settings.service';
+import {LocalDeviceDataService} from '../../services/local-device-data.service';
 
 @Component({
   selector: 'app-wrapper',
@@ -11,7 +12,7 @@ export class WrapperComponent implements OnInit {
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
   @Input() textColor : string = "white";
-  constructor(public setting : CurrentRoomSettingsService) {
+  constructor(public setting : CurrentRoomSettingsService, public data: LocalDeviceDataService) {
     this.setDate();
   }
 
