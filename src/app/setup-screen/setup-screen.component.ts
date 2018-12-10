@@ -26,6 +26,7 @@ export class SetupScreenComponent implements OnInit {
         if(!this.roomFault){
           this.settings.key = val.secret;
           this.settings.id = val.id;
+          this.settings.showCalendar = true;
           this.settings.save();
           location.reload();
         }
