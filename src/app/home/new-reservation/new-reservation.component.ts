@@ -1,10 +1,12 @@
-import {AfterViewInit, Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/internal/operators';
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {DurationButtonUser} from '../DurationButtonUser';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material';
+import {CurrentRoomSettingsService} from '../../services/current-room-settings.service';
+import {LocalDeviceDataService} from '../../services/local-device-data.service';
 
 @Component({
   selector: 'app-new-reservation',
@@ -16,10 +18,12 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
   public nameFoundError : boolean = false;
   @ViewChild('autoCompleteInput', { read: MatAutocompleteTrigger })
   public panel : MatAutocompleteTrigger;
+  @Input() roomSelectedId;
   public ngAfterViewInit(): void {
     this.nameFoundError = false;
     this.resetTimer();
     this.timeButtonSelected = 0;
+    this.data.showCalendar = true;
     this.myControl.setValue(null);
     setTimeout(() => this.populateWithNames(),1);
   }
@@ -30,7 +34,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
     this.timeoutTimer = setTimeout(() => this.cancel(), 1000 * 60 * 5);
   }
 
-  public constructor(private rest: ReservationStatusRESTService) {
+  public constructor(private rest: ReservationStatusRESTService, public setting : CurrentRoomSettingsService, public data : LocalDeviceDataService) {
     super();
   }
 
@@ -51,7 +55,10 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
         for (var i = 0; i < this.original.length; i++) {
           this.options[i] = val[i].name;
         }
-        setTimeout(() => this.panel.openPanel(), 10);
+        setTimeout(() => {
+          this.panel.openPanel();
+          this.panel.panelClosingActions.subscribe( x => console.log(x) );
+        }, 10);
 
       },
       response => {
@@ -65,6 +72,10 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
       );
   }
 
+  public reopenPanel() : void{
+    setTimeout(() => this.panel.openPanel(), 1);
+
+  }
   private original;
   @Output() cancelEvent = new EventEmitter();
 
@@ -88,20 +99,20 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
   }
 
   public submit(): void {
-    console.log(this.myControl.value);
 
     this.nameFoundError = this.getUserId() == -1;
     if(!this.nameFoundError) {
 
-      this.rest.createReservation(this.getUserId(), this.getMinutes());
+      console.log(this.roomSelectedId);
+      this.rest.createReservation(this.getUserId(), this.getMinutes(), this.roomSelectedId);
       this.cancel();
     }
   }
 
   private getUserId(): number {
 
-    for (var i = 0; i < this.original.length; i++) {
-      if (this.original[i].name === this.myControl.value) {
+    for (let i = 0; i < this.original.length; i++) {
+      if (this.original[i].name.trim() === this.myControl.value.trim()) {
         return this.original[i].id;
       }
     }

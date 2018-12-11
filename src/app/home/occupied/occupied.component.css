@@ -44,7 +44,7 @@ sub{
   display: block;
   color: white;
   height: 40px;
-  width: 128px;
+  width: 138px;
   border: 2px solid rgba(255,255,255,1);
   border-radius: 3px;
   font-family: "Rockwell Std";
@@ -56,7 +56,7 @@ sub{
 }
 #end{
   background-image: url("../../../assets/endClock.svg");
-  width: 90px;
+  width: 100px;
 }
 #extend{
   background-image: url("../../../assets/extend.svg");
@@ -97,7 +97,7 @@ sub{
   border-radius: 2px;
   background-color: rgba(255,255,255,1);
   margin-right: 7px;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   text-align: center;
 }
@@ -112,7 +112,7 @@ sub{
   background-color: rgba(0,157,220,1);
   color: rgba(255,255,255,1);
   font-family: "Rockwell Std";
-  font-size: 20px;
+  font-size: 18px;
   line-height: 24px;
   text-align: center;
   margin-left: 22px;
@@ -140,4 +140,18 @@ sub{
   margin-top: 12px;
   margin-left: 22px;
   margin-bottom: -10px;
+}
+#use{
+  display: block;
+  margin: 15px auto;
+  height: 40px;
+  width: 215px;
+  border: 2px solid rgba(255,255,255,1);
+  border-radius: 2px;
+  background-color: rgba(255,255,255,1);
+  color: rgba(193,45,63,1);
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
 }

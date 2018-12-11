@@ -1,0 +1,47 @@
+#container{
+  width: 500px;
+  margin: 80px auto;
+  background-color: white;
+  padding:10px;
+}
+#bg{
+  background-color: #EEEEEE;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+h1{
+  font-size: 30px;
+  margin-top: 10px;
+  padding-bottom: 7px;
+  border-bottom: 1px rgba(0,0,0,.2) solid;
+}
+.main{
+  line-height: 20px;
+  text-space: 20px;
+  letter-spacing: 2px;
+  font-size: 18px;
+  margin-top:10px;
+}
+p{
+  margin-top: 4px;
+  font-size: 10px;
+}
+input{
+  display: block;
+  width: 490px;
+  margin-top: 10px;
+  font-size: 20px;
+}
+button{
+  background-color: darkblue;
+  color: white;
+  padding: 5px;
+  margin-top: 10px;
+}
+.error{
+  margin-top: 10px;
+  color: red;
+  font-size: 12px;
+}

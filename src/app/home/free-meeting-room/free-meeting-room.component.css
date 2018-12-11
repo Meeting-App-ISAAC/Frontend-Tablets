@@ -1,0 +1,93 @@
+#roomContainer{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: calc(100vh - 220px );
+  margin: 20px;
+}
+.roomWrapper{
+
+  background-color: white;
+  height: 180px;
+  width: 180px;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+  display: inline-block;
+  margin: 0 30px 30px 0;
+}
+.roomWrapper h4{
+  color: rgba(102,102,102,1);
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  padding: 10px;
+  box-sizing: border-box;
+  border-bottom: 2px rgba(0,157,220,1) solid;
+}
+h1{
+  color: rgba(255,255,255,1);
+  font-family: "Rockwell Std";
+  font-size: 48px;
+  line-height: 58px;
+  margin: 20px 0 40px 20px;
+}
+.floor, .capacity, .free{
+  padding-left: 20px;
+  margin-left: 0;
+  background: no-repeat left center;
+  background-size: 12px;
+}
+.floor{
+  background-image: url("../../../assets/floor_black.svg");
+}
+
+.capacity{
+  background-image: url("../../../assets/persons_black.svg");
+}
+.free{
+  background-image: url("../../../assets/clock_black.svg");
+}
+ul{
+  padding: 5px;
+  height: 66px;
+}
+li{
+  padding: 2px 0;
+}
+.submit{
+  height: 40px;
+  width: 110px;
+  border-radius: 2px;
+  background-color: rgba(0,157,220,1);
+  color: rgba(255,255,255,1);
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  margin: 10px;
+}
+#closeButton{
+  margin-top: 10px;
+  width: 115px;
+  color: white;
+  border: 2px solid white;
+  height: 40px;
+  border-radius: 2px;
+  font-family: "Rockwell Std";
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+  background-color: transparent;
+  margin-left: 20px;
+}
+.error{
+  color: red;
+  padding: 30px;
+}
+button:disabled,
+button[disabled]{
+  opacity: 0.3;
+}
+
