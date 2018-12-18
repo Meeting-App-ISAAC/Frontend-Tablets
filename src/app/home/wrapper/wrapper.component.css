@@ -54,6 +54,14 @@
   bottom: 30px;
 }
 
+#languageselection{
+  height: 180px;
+  width: 86px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
 main {
   background-color: darkgreen;
   width: calc(100% - 261px);

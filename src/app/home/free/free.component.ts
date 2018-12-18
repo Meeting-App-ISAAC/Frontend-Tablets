@@ -1,4 +1,8 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Http} from "@angular/http";
+import LanguageFile from "../../../assets/LanguageFile";
 
 @Component({
   selector: 'app-free',
@@ -15,11 +19,13 @@ export class FreeComponent implements OnInit, OnChanges {
     }
   }
 
-
   @Input() until : Date;
   @Output() reservationEvent = new EventEmitter();
   public showButton : boolean = true;
-  constructor() { }
+
+  constructor() {
+    console.log(LanguageFile["EN"]);
+  }
 
   public use() : void{
     this.reservationEvent.emit();

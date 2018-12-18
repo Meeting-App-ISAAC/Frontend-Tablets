@@ -10,6 +10,14 @@
       {{currentDate | date:"H:mm"}}
     </div>
   </header>
+  <div id="languageselection">
+    <div (click)="changeLanguage('EN')">
+      <img id="gb" class="flag" src="../../../assets/gb.svg" alt="United Kingdom Flag">
+    </div>
+    <div (click)="changeLanguage('NL')">
+      <img id="nl" class="flag" src="../../../assets/nl.svg" alt="Netherlands Flag">
+    </div>
+  </div>
   <ng-content></ng-content>
   <div id="logo"></div>
 </main>

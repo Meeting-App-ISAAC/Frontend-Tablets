@@ -16,6 +16,11 @@ export class WrapperComponent implements OnInit {
     this.setDate();
   }
 
+  changeLanguage(language:string){
+    console.log(language);
+    localStorage.setItem("Language", language)
+  }
+
   ngOnInit() {
   }
   private setDate() : void{
