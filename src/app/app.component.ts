@@ -9,6 +9,5 @@ import {LocalDeviceDataService} from './services/local-device-data.service';
 export class AppComponent {
   title = 'app';
   constructor(public settings : LocalDeviceDataService){
-    
   }
 }

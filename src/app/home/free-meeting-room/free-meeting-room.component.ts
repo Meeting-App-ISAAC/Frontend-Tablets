@@ -3,6 +3,7 @@ import {ReservationStatusRESTService} from '../../services/reservation-status-re
 import {HomeComponent} from '../home.component';
 import {WebsocketConnectorService} from '../../services/websocket-connector.service';
 import {LocalDeviceDataService} from '../../services/local-device-data.service';
+import LanguageFile from "../../../assets/LanguageFile";
 
 @Component({
   selector: 'app-free-meeting-room',
@@ -10,6 +11,12 @@ import {LocalDeviceDataService} from '../../services/local-device-data.service';
   styleUrls: ['./free-meeting-room.component.css']
 })
 export class FreeMeetingRoomComponent implements OnInit, OnChanges, AfterViewInit {
+  freemeetingroomstitle = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.title'];
+  newreservationtitle = LanguageFile[localStorage.getItem('Language')]['newreservation.title'];
+  freemeetingroomserror = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.error'];
+  persons = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.persons'];
+  generalcancel = LanguageFile[localStorage.getItem('Language')]['general.cancel'];
+
   ngAfterViewInit(): void {
     this.setTimer();
   }

@@ -1,20 +1,24 @@
 <app-wrapper [showName]="false" backgroundColor="rgba(0,157,220,1)">
   <div id="container">
-    <h1>Free meeting rooms</h1>
+    <!-- Free meeting rooms -->
+    <h1>{{freemeetingroomstitle}}</h1>
     <div id="roomContainer">
       <div class="roomWrapper" *ngFor="let item of meetingRooms">
         <h4>{{item.name}}</h4>
         <ul>
           <li class="floor">{{item.location}}</li>
-          <li class="capacity">{{item.capacity}} persons</li>
+          <li class="capacity">{{item.capacity}} {{persons}}</li>
           <li class="free" *ngIf="!!item.free">until {{item.free | date:"H:mm"}}</li>
         </ul>
-        <button class="submit" [disabled]="item.diff <= websocket.settings.maxReservationWindow" (click)="bookRoom(item.id)">RESERVE</button>
+        <!-- Reserve -->
+        <button class="submit" [disabled]="item.diff <= websocket.settings.maxReservationWindow" (click)="bookRoom(item.id)"> {{newreservationtitle}}</button>
       </div>
+      <!-- We're sorry. There are no free rooms -->
       <div class="roomWrapper error" *ngIf="meetingRooms.length === 0">
-        We're sorry. There are no free rooms.
+        {{freemeetingroomserror}}
       </div>
     </div>
-    <button *ngIf="!settings.isAdmin" id="closeButton" (click)="cancelEvent()">CANCEL</button>
+    <!-- CANCEL -->
+    <button *ngIf="!settings.isAdmin" id="closeButton" (click)="cancelEvent()">{{generalcancel}}</button>
   </div>
 </app-wrapper>

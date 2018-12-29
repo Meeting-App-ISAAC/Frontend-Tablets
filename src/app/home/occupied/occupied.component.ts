@@ -2,6 +2,7 @@ import {AfterViewInit, Component, EventEmitter, Input, OnChanges, OnInit, Output
 import {ReservationStatusRESTService} from '../../services/reservation-status-rest.service';
 import {ReservationModel} from '../../interfaces/ReservationModel';
 import {DurationButtonUser} from '../DurationButtonUser';
+import LanguageFile from "../../../assets/LanguageFile";
 
 @Component({
   selector: 'app-occupied',
@@ -10,6 +11,8 @@ import {DurationButtonUser} from '../DurationButtonUser';
 })
 export class OccupiedComponent extends DurationButtonUser implements AfterViewInit, OnChanges{
 
+  findfreeroombutton = LanguageFile[localStorage.getItem('Language')]['findfreeroom.button'];
+  occupied = LanguageFile[localStorage.getItem('Language')]['general.occupied'];
 
   @Input() until : Date;
   @Input() title : String;

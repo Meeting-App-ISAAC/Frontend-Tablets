@@ -7,6 +7,7 @@ import {DurationButtonUser} from '../DurationButtonUser';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material';
 import {CurrentRoomSettingsService} from '../../services/current-room-settings.service';
 import {LocalDeviceDataService} from '../../services/local-device-data.service';
+import LanguageFile from "../../../assets/LanguageFile";
 
 @Component({
   selector: 'app-new-reservation',
@@ -14,6 +15,14 @@ import {LocalDeviceDataService} from '../../services/local-device-data.service';
   styleUrls: ['./new-reservation.component.css']
 })
 export class NewReservationComponent extends DurationButtonUser  implements OnInit, OnChanges, AfterViewInit {
+
+  reserve = LanguageFile[localStorage.getItem('Language')]['newreservation.title'];
+  newreservationlength = LanguageFile[localStorage.getItem('Language')]['newreservation.length'];
+  newreservationwho = LanguageFile[localStorage.getItem('Language')]['newreservation.who'];
+  newreservationerrortime = LanguageFile[localStorage.getItem('Language')]['newreservation.error.time'];
+  newreservationerrorname = LanguageFile[localStorage.getItem('Language')]['newreservation.error.name'];
+  startmeeting = LanguageFile[localStorage.getItem('Language')]['general.startmeeting'];
+  generalcancel = LanguageFile[localStorage.getItem('Language')]['general.cancel'];
 
   public nameFoundError : boolean = false;
   @ViewChild('autoCompleteInput', { read: MatAutocompleteTrigger })

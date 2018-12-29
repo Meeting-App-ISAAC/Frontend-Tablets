@@ -10,6 +10,12 @@ import LanguageFile from "../../../assets/LanguageFile";
   styleUrls: ['./free.component.css']
 })
 export class FreeComponent implements OnInit, OnChanges {
+
+  findfreeroom = LanguageFile[localStorage.getItem('Language')]['findfreeroom.button'];
+  usemeetingroombutton = LanguageFile[localStorage.getItem('Language')]['usemeetingroom.button'];
+  free = LanguageFile[localStorage.getItem('Language')]['general.free'];
+  freemeetingroomuntil = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.until'];
+
   @Output() findRoom = new EventEmitter();
   ngOnInit(): void {
   }
@@ -24,7 +30,7 @@ export class FreeComponent implements OnInit, OnChanges {
   public showButton : boolean = true;
 
   constructor() {
-    console.log(LanguageFile["EN"]);
+    console.log(LanguageFile[localStorage.getItem('Language')]);
   }
 
   public use() : void{
