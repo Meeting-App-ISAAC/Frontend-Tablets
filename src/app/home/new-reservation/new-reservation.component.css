@@ -21,7 +21,7 @@
    line-height: 24px;
    text-align: center;
    margin-left: 22px;
-   margin-top: 210px;
+   margin-top: 64px;
  }
  #submitButton{
 
@@ -72,3 +72,27 @@ p{
  button[disabled]{
    opacity: 0.3;
  }
+
+ #table{
+   max-height: 231px !important;
+   width: 501px;
+   border-radius: 0 0 2px 2px;
+   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+   overflow: scroll;
+   margin-top: 20px;
+ }
+ .option {
+   height: 47px !important;
+   color: rgba(102,102,102,1);
+   font-family: "Open Sans";
+   font-size: 16px;
+   box-sizing: border-box;
+   padding-top: 16px;
+   padding-left: 12px;
+ }
+ .optionSelect{
+   border: 2px #009cde solid;
+   border-radius: 2px;
+   background-color: rgba(181, 180, 180, 0.1);
+ }
+

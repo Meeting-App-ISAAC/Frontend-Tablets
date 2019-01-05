@@ -25,15 +25,19 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
   generalcancel = LanguageFile[localStorage.getItem('Language')]['general.cancel'];
 
   public nameFoundError : boolean = false;
-  @ViewChild('autoCompleteInput', { read: MatAutocompleteTrigger })
-  public panel : MatAutocompleteTrigger;
+  public nameSelectedId : number = -1;
+
+  public original : any[] = [];
+  @Output() cancelEvent = new EventEmitter();
+
   @Input() roomSelectedId;
   public ngAfterViewInit(): void {
+    this.original = [];
+    this.nameSelectedId = -1;
     this.nameFoundError = false;
     this.resetTimer();
     this.timeButtonSelected = 0;
     this.data.showCalendar = true;
-    this.myControl.setValue(null);
     setTimeout(() => this.populateWithNames(),1);
   }
 
@@ -48,64 +52,31 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
   }
 
 
-  ngOnChanges(changes: SimpleChanges): void {
-    super.ngOnChanges(changes);
-    if(this.timeButtonsFree < 0){
-      this.myControl.disable();
-    } else {
-      this.myControl.enable();
-    }
-  }
 
   private populateWithNames() : void{
     this.rest.getUsers().subscribe(
-      (val) => {
+      (val : any) => {
         this.original = val;
-        for (var i = 0; i < this.original.length; i++) {
-          this.options[i] = val[i].name;
-        }
-        setTimeout(() => {
-          this.panel.openPanel();
-          this.panel.panelClosingActions.subscribe( x => console.log(x) );
-        }, 10);
-
       },
       response => {
       },
       () => {
       });
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
   }
 
-  public reopenPanel() : void{
-    setTimeout(() => this.panel.openPanel(), 1);
 
-  }
-  private original;
-  @Output() cancelEvent = new EventEmitter();
 
   ngOnInit() {
     super.ngOnInit();
   }
 
-  public inputChange() : void{
+  public inputChange(select : any) : void{
     this.nameFoundError = false;
+    this.nameSelectedId = select.id;
   }
 
 
-  myControl = new FormControl();
-  public options: string[] = [];
-  filteredOptions: Observable<string[]>;
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
 
   public submit(): void {
 
@@ -119,13 +90,7 @@ export class NewReservationComponent extends DurationButtonUser  implements OnIn
   }
 
   private getUserId(): number {
-
-    for (let i = 0; i < this.original.length; i++) {
-      if (this.original[i].name.trim() === this.myControl.value.trim()) {
-        return this.original[i].id;
-      }
-    }
-    return -1;
+    return this.nameSelectedId;
   }
 
 

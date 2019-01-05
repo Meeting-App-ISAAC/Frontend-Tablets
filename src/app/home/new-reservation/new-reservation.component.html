@@ -11,16 +11,11 @@
     </div>
     <!-- Who are you? -->
     <p>{{newreservationwho}}</p>
-    <form class="example-form" *ngIf="options.length > 0">
-      <mat-form-field class="full-width">
-        <input type="text" #autoCompleteInput aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option" (onSelectionChange)="inputChange()">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form>
+    <div id="table" *ngIf="original.length > 0">
+      <div class="option" [ngClass]="{'optionSelect': nameSelectedId === option.id}" *ngFor="let option of original" (click)="inputChange(option)">
+        {{option.name}}
+      </div>
+    </div>
     <div *ngIf="timeButtonsFree < 0" class="error">
       {{newreservationerrortime}}
     </div>

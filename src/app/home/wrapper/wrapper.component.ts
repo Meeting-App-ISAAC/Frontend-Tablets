@@ -19,6 +19,7 @@ export class WrapperComponent implements OnInit {
   changeLanguage(language:string){
     console.log(language);
     localStorage.setItem("Language", language)
+    window.location.reload();
   }
 
   ngOnInit() {
