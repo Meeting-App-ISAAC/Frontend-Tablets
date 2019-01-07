@@ -1,36 +1,36 @@
 <app-wrapper backgroundColor="rgba(193,45,63,1)">
   <div *ngIf="showDialog" id="extendDialog">
     <div  class="error" *ngIf="timeButtonsFree == -1">
-      Sorry, we cannot extend the reservation anymore.
+      {{extenderror}}
     </div>
 
     <div *ngIf="timeButtonsFree > -1">
       <div *ngIf="error" class="error">
-        Sorry, we cannot extend the reservation with the given time.
+        {{extenderror2}}
       </div>
-      <h3>Extend meeting</h3>
+      <h3>{{extendtitle}}</h3>
       <span class="close" (click)="closeExtendDialog()"></span>
-      <p>For how long do you want to extend your meeting?</p>
+      <p>{{howlongextend}}</p>
       <div id="timeButtons">
         <button (click)="clickTimeButton(0)" [disabled]="timeButtonsFree < 0" [ngClass]="timeButtonSelected === 0 ? 'selected' : ''" class=" time">15 MIN</button>
         <button (click)="clickTimeButton(1)" [disabled]="timeButtonsFree < 1" [ngClass]="timeButtonSelected === 1 ? 'selected' : ''" class="time">30 MIN</button>
         <button (click)="clickTimeButton(2)" [disabled]="timeButtonsFree < 2" [ngClass]="timeButtonSelected === 2 ? 'selected' : ''" class="time">45 MIN</button>
         <button (click)="clickTimeButton(3)" [disabled]="timeButtonsFree < 3" [ngClass]="timeButtonSelected === 3 ? 'selected' : ''" class="time">1 HOUR</button>
       </div>
-      <button id="submitButton" (click)="submitExtendDialog()">EXTEND MEETING</button>
+      <button id="submitButton" (click)="submitExtendDialog()">{{extendmeeting}}</button>
     </div>
   </div>
 
   <div id="container">
     <h1>{{occupied}}</h1>
-    <div id="by"><i class="personIcon"></i> By {{title}}</div>
-    <sub>Until {{until | date:"H:mm"}}</sub>
+    <div id="by"><i class="personIcon"></i> {{by}} {{title}}</div>
+    <sub>{{freemeetingroomsuntil}} {{until | date:"H:mm"}}</sub>
     <button id="use" (click)="findRoom.emit()">{{findfreeroombutton}}</button>
   </div>
 
   <div id="buttonGroup">
-    <button id="end" (click)="endEvent()">END</button>
-    <button id="extend" (click)="extendEvent()" *ngIf="timeButtonsFree > -1">EXTEND</button>
+    <button id="end" (click)="endEvent()">{{generalend}}</button>
+    <button id="extend" (click)="extendEvent()" *ngIf="timeButtonsFree > -1">{{generalextend}}</button>
   </div>
 
 </app-wrapper>

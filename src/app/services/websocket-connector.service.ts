@@ -28,7 +28,9 @@ export class WebsocketConnectorService {
             this.settings = data;
             console.log(data)
             console.log(data['language'])
-            localStorage.setItem('Language', data['language'])
+            if (localStorage.getItem('Language') == null) {
+              localStorage.setItem('Language', data['language'])
+            }
           } else {
             this.reservationUpdate.emit(data);
           }

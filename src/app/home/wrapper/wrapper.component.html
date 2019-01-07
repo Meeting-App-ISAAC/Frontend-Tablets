@@ -3,7 +3,7 @@
     <div id="left" *ngIf="showName">
       <h2>{{ setting.name }}</h2>
       <div>
-        <span id="floor">{{ setting.location }}</span> <span id="capacity">{{ setting.capacity }} persons</span>
+        <span id="floor">{{setting.location}}</span> <span id="capacity">{{ setting.capacity }} {{persons}}</span>
       </div>
     </div>
     <div id="right" [style.color]="textColor">
