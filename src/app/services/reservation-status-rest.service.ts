@@ -3,7 +3,6 @@ import {ReservationModel} from '../interfaces/ReservationModel';
 import {Observable, Subscription} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalDeviceDataService} from './local-device-data.service';
-import { isDevMode } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
