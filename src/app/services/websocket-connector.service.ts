@@ -1,6 +1,7 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {EventListener} from '@angular/core/src/debug/debug_node';
 import {LocalDeviceDataService} from './local-device-data.service';
+import { isDevMode } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,26 @@ export class WebsocketConnectorService {
   public reservationUpdate = new EventEmitter();
   public settingsUpdate = new EventEmitter();
   public settings : any = {};
+
+  private getWebsocketUrl() : string{
+    if(isDevMode()){
+      return "ws://"+location.hostname+":8090/reservation/";
+    }
+    var loc = window.location, new_uri;
+    if (loc.protocol === "https:") {
+      new_uri = "wss:";
+    } else {
+      new_uri = "ws:";
+    }
+
+    return new_uri+"//"+location.hostname+"/reservation/";
+  }
+
   private connect() : void{
     try {
       if(this.tw === null || this.tw.readyState === this.tw.CLOSING || this.tw.readyState === this.tw.CLOSED) {
         this.connected = false;
-        this.tw = new WebSocket("ws://"+location.hostname+":8090/reservation/");
+        this.tw = new WebSocket(this.getWebsocketUrl());
         this.tw.onmessage = (message) => {
           let data = JSON.parse(message.data).messageData;
           if(!!data.type && data.type === "settings"){

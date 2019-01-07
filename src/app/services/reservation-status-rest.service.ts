@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable, isDevMode} from '@angular/core';
 import {ReservationModel} from '../interfaces/ReservationModel';
 import {Observable, Subscription} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalDeviceDataService} from './local-device-data.service';
+import { isDevMode } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +20,18 @@ export class ReservationStatusRESTService {
     };
     return httpOptions;
   }
+  private getHost() : string{
+    if(isDevMode()){
+      return "http://"+location.hostname+":8090/";
+    }
+    return "//"+location.hostname+"/";
+  }
+
   public sendReservationStarted(reservation : ReservationModel) : void {
     console.log("SEND");
     const data = {"roomId" : this.settings.id, "reservationId" : reservation.id};
     const httpOptions = this.getHttpOptions();
-    this.http.post("http://"+location.hostname+":8090/api/start", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post(this.getHost()+"api/start", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -39,7 +47,7 @@ export class ReservationStatusRESTService {
   public sendReservationEnded(reservation : ReservationModel) {
     const data = {"roomId" : this.settings.id, "reservationId" : reservation.id};
     const httpOptions = this.getHttpOptions();
-    this.http.post("http://"+location.hostname+":8090/api/stop", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post(this.getHost()+"api/stop", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -55,7 +63,7 @@ export class ReservationStatusRESTService {
   public createReservation(userId : number, duration : number, roomId: number) {
     const data = {"roomId" : roomId, "userId" : userId, "duration" : duration};
     const httpOptions = this.getHttpOptions();
-    this.http.post("http://"+location.hostname+":8090/api/create", JSON.stringify(data) ,httpOptions).subscribe(
+    this.http.post(this.getHost()+"api/create", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
@@ -71,27 +79,27 @@ export class ReservationStatusRESTService {
     debugger;
     const data = {"roomId" : this.settings.id, "reservationId" : reservation.id, minutes : minutes};
     const httpOptions = this.getHttpOptions();
-    let post = this.http.post("http://"+location.hostname+":8090/api/extend", JSON.stringify(data) ,httpOptions);
+    let post = this.http.post(this.getHost()+"api/extend", JSON.stringify(data) ,httpOptions);
     return post;
   }
 
   public getUsers() : Observable<object>{
     const httpOptions = this.getHttpOptions();
-    return this.http.get("http://"+location.hostname+":8090/api/users", httpOptions);
+    return this.http.get(this.getHost()+"api/users", httpOptions);
   }
 
   public getRoomsMetaData() : Observable<object>{
     const httpOptions = this.getHttpOptions();
-    return this.http.get("http://"+location.hostname+":8090/config/rooms", httpOptions);
+    return this.http.get(this.getHost()+"config/rooms", httpOptions);
   }
   public getRoomInfo(key: String) : Observable<object>{
     const httpOptions = this.getHttpOptions();
-    return this.http.get("http://"+location.hostname+":8090/config/roomInfo?key="+key, httpOptions);
+    return this.http.get(this.getHost()+"config/roomInfo?key="+key, httpOptions);
   }
 
   public getAdminGranted(pass: String) : Observable<object>{
     const httpOptions = this.getHttpOptions();
-    return this.http.get("http://"+location.hostname+":8090/config/adminInfo?pass="+pass, httpOptions);
+    return this.http.get(this.getHost()+"config/adminInfo?pass="+pass, httpOptions);
   }
 
 }

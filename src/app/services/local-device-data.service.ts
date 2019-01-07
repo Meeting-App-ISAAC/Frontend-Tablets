@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class LocalDeviceDataService {
+
 
   constructor() {
     this.id = parseInt( localStorage.getItem("id")) || -1;
