@@ -1,11 +1,9 @@
 FROM node:9.6.1 as builder
-
 COPY . angular
 
 RUN cd angular && npm install
 RUN cd angular && npm prune
 RUN cd angular && npm run production
-
 
 
 # Get latest nginx image
