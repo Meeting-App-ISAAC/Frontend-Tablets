@@ -13,6 +13,7 @@ export class WrapperComponent implements OnInit {
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
   @Input() textColor : string = "white";
+  @Input() showFlags : boolean = true;
   constructor(public setting : CurrentRoomSettingsService, public data: LocalDeviceDataService) {
     this.setDate();
   }

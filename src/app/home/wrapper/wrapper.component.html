@@ -10,7 +10,7 @@
       {{currentDate | date:"H:mm"}}
     </div>
   </header>
-  <div id="languageselection">
+  <div id="languageselection" *ngIf="showFlags">
     <div (click)="changeLanguage('EN')">
       <img id="gb" class="flag" src="../../../assets/gb.svg" alt="United Kingdom Flag">
     </div>
