@@ -1,3 +1,9 @@
+<div id="wait" *ngIf="rest.loading">
+  <div id="inside">
+  <h1>Thank you. The update has been received</h1>
+  <sub>We're now updating Microsoft Exchange. This might take a moment</sub>
+  </div>
+</div>
 <app-no-connection *ngIf="!websocket.connected"></app-no-connection>
 <app-free-meeting-room *ngIf="websocket.connected && displayScreen === 'room select'" [roomData]="roomsCollection" (roomSelected)="showReservationPanelForOther($event)" (cancel)="hideSelectRoom()" ></app-free-meeting-room>
 

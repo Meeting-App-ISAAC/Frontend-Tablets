@@ -78,6 +78,7 @@ export class OccupiedComponent extends DurationButtonUser implements AfterViewIn
   }
   public submitExtendDialog() : void{
     this.hideError();
+    this.rest.changeLoading(true);
     this.rest.sendReservationExtend(this.currentReservation, this.getMinutes()).subscribe(
       (val) => {
         if(val.toString() === 'true'){
@@ -90,6 +91,7 @@ export class OccupiedComponent extends DurationButtonUser implements AfterViewIn
         //POST call in error
       },
       () => {
+        this.rest.changeLoading(false);
         //The POST observable is now completed
       });
   }

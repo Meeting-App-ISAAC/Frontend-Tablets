@@ -9,6 +9,7 @@ import {LocalDeviceDataService} from './local-device-data.service';
 })
 export class ReservationStatusRESTService {
 
+  public loading : boolean = false;
   public constructor(private settings : LocalDeviceDataService, private http : HttpClient){}
   private  getHttpOptions() : any{
     const httpOptions = {
@@ -30,6 +31,7 @@ export class ReservationStatusRESTService {
     console.log("SEND");
     const data = {"roomId" : this.settings.id, "reservationId" : reservation.id};
     const httpOptions = this.getHttpOptions();
+    this.changeLoading(true);
     this.http.post(this.getHost()+"api/start", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
@@ -40,12 +42,18 @@ export class ReservationStatusRESTService {
       },
       () => {
         //The POST observable is now completed
+        this.changeLoading(false);
       });
+  }
+
+  public changeLoading(loading: boolean){
+    this.loading = loading;
   }
 
   public sendReservationEnded(reservation : ReservationModel) {
     const data = {"roomId" : this.settings.id, "reservationId" : reservation.id};
     const httpOptions = this.getHttpOptions();
+    this.changeLoading(true);
     this.http.post(this.getHost()+"api/stop", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
@@ -55,6 +63,7 @@ export class ReservationStatusRESTService {
         //POST call in error
       },
       () => {
+        this.changeLoading(false);
         //The POST observable is now completed
       });
   }
@@ -62,6 +71,7 @@ export class ReservationStatusRESTService {
   public createReservation(userId : number, duration : number, roomId: number) {
     const data = {"roomId" : roomId, "userId" : userId, "duration" : duration};
     const httpOptions = this.getHttpOptions();
+    this.changeLoading(true);
     this.http.post(this.getHost()+"api/create", JSON.stringify(data) ,httpOptions).subscribe(
       (val) => {
         //POST call successful value returned in body
@@ -71,6 +81,7 @@ export class ReservationStatusRESTService {
         //POST call in error
       },
       () => {
+        this.changeLoading(false);
         //The POST observable is now completed
       });
   }

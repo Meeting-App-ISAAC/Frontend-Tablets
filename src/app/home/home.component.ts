@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
 
 
 
-  constructor(public websocket :  WebsocketConnectorService, private rest : ReservationStatusRESTService, public data : LocalDeviceDataService, public roomSetting : CurrentRoomSettingsService) {
+  constructor(public websocket :  WebsocketConnectorService, public rest : ReservationStatusRESTService, public data : LocalDeviceDataService, public roomSetting : CurrentRoomSettingsService) {
     this.roomId = this.data.id;
     this.numbers = (new Array(24)).fill(0).map((x, i) => i);
     websocket.reservationUpdate.subscribe( data => {
