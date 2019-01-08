@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CurrentRoomSettingsService} from '../../services/current-room-settings.service';
 import {LocalDeviceDataService} from '../../services/local-device-data.service';
+import LanguageFile from "../../../assets/LanguageFile";
 
 @Component({
   selector: 'app-wrapper',
@@ -12,9 +13,12 @@ export class WrapperComponent implements OnInit {
   @Input() backgroundColor : string = "red";
   @Input() showName : boolean = true;
   @Input() textColor : string = "white";
+  @Input() showFlags : boolean = true;
   constructor(public setting : CurrentRoomSettingsService, public data: LocalDeviceDataService) {
     this.setDate();
   }
+
+  persons = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.persons'];
 
   changeLanguage(language:string){
     console.log(language);

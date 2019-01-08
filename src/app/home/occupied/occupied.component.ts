@@ -13,6 +13,15 @@ export class OccupiedComponent extends DurationButtonUser implements AfterViewIn
 
   findfreeroombutton = LanguageFile[localStorage.getItem('Language')]['findfreeroom.button'];
   occupied = LanguageFile[localStorage.getItem('Language')]['general.occupied'];
+  generalend = LanguageFile[localStorage.getItem('Language')]['general.end'];
+  generalextend = LanguageFile[localStorage.getItem('Language')]['general.extend'];
+  extendmeeting = LanguageFile[localStorage.getItem('Language')]['general.extendmeeting'];
+  by = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.by'];
+  freemeetingroomsuntil = LanguageFile[localStorage.getItem('Language')]['freemeetingrooms.until'];
+  howlongextend = LanguageFile[localStorage.getItem('Language')]['extendreservation.howlong'];
+  extendtitle = LanguageFile[localStorage.getItem('Language')]['extendreservation.extendmeeting'];
+  extenderror = LanguageFile[localStorage.getItem('Language')]['extendreservation.error'];
+  extenderror2 = LanguageFile[localStorage.getItem('Language')]['extendreservation.error2'];
 
   @Input() until : Date;
   @Input() title : String;
