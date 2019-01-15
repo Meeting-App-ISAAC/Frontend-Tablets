@@ -38,6 +38,11 @@ export class WebsocketConnectorService {
         this.connected = false;
         this.tw = new WebSocket(this.getWebsocketUrl());
         this.tw.onmessage = (message) => {
+          if(message.data.indexOf("invalid key") >= 0){
+            window.localStorage.clear();
+            window.location.reload();
+            return;
+          }
           let data = JSON.parse(message.data).messageData;
           if(!!data.type && data.type === "settings"){
             this.settingsUpdate.emit(data)
