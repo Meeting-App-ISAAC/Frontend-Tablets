@@ -36,6 +36,7 @@ export class WebsocketConnectorService {
     try {
       if(this.tw === null || this.tw.readyState === this.tw.CLOSING || this.tw.readyState === this.tw.CLOSED) {
         this.connected = false;
+
         this.tw = new WebSocket(this.getWebsocketUrl());
         this.tw.onmessage = (message) => {
           if(message.data.indexOf("invalid key") >= 0){
