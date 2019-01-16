@@ -4,6 +4,7 @@ import { ReservationModel} from '../interfaces/ReservationModel';
 import {ReservationStatusRESTService} from '../services/reservation-status-rest.service';
 import {LocalDeviceDataService} from '../services/local-device-data.service';
 import {CurrentRoomSettingsService} from '../services/current-room-settings.service';
+import LanguageFile from "../../assets/LanguageFile";
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,8 @@ export class HomeComponent implements OnInit {
   public roomId : number = 0;
   public localReservations: ReservationModel[] = [];
   public roomsCollection = [];
+  updatereceived = LanguageFile[localStorage.getItem('Language')]['exchange.updatereceived'];
+  updateexchange = LanguageFile[localStorage.getItem('Language')]['exchange.updateexchange'];
 
 
   public currentDate : Date = new Date();

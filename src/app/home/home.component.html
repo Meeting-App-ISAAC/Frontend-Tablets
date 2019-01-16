@@ -1,7 +1,7 @@
 <div id="wait" *ngIf="rest.loading">
   <div id="inside">
-  <h1>Thank you. The update has been received</h1>
-  <sub>We're now updating Microsoft Exchange. This might take a moment</sub>
+  <h1>{{updatereceived}}</h1>
+  <sub>{{updateexchange}}</sub>
   </div>
 </div>
 <app-no-connection *ngIf="!websocket.connected"></app-no-connection>

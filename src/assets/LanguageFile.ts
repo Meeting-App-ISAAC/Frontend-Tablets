@@ -50,6 +50,8 @@ export default {
 		"date.month.october" : "October",
 		"date.month.november" : "November",
 		"date.month.december" : "December",
+    "exchange.updatereceived" : "Thank you. The update has been received",
+    "exchange.updateexchange" : "We're now updating Microsoft Exchange. This might take a moment",
 	},
 	"NL" : {
 		"title" : "DIT IS EEN NEDERLANDSE TITEL",
@@ -102,5 +104,7 @@ export default {
 		"date.month.october" : "October",
 		"date.month.november" : "November",
 		"date.month.december" : "December",
+    "exchange.updatereceived" : "Bedankt. De update is ontvangen",
+    "exchange.updateexchange" : "We zijn nu Microsoft Exchange aan het updaten. Dit kan even duren",
 	}
 }
