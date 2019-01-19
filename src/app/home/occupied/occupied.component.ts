@@ -86,9 +86,11 @@ export class OccupiedComponent extends DurationButtonUser implements AfterViewIn
         } else {
           this.showError();
         }
+        this.rest.changeLoading(false);
       },
       response => {
         //POST call in error
+        this.rest.changeLoading(false);
       },
       () => {
         this.rest.changeLoading(false);

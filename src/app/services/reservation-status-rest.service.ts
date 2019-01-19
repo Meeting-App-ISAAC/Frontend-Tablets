@@ -36,8 +36,10 @@ export class ReservationStatusRESTService {
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
+        this.changeLoading(false);
       },
       response => {
+        this.changeLoading(false);
         //POST call in error
       },
       () => {
@@ -58,8 +60,10 @@ export class ReservationStatusRESTService {
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
+        this.changeLoading(false);
       },
       response => {
+        this.changeLoading(false);
         //POST call in error
       },
       () => {
@@ -76,9 +80,11 @@ export class ReservationStatusRESTService {
       (val) => {
         //POST call successful value returned in body
         //this.result = val.toString();
+        this.changeLoading(false);
       },
       response => {
         //POST call in error
+        this.changeLoading(false);
       },
       () => {
         this.changeLoading(false);
