@@ -37,7 +37,7 @@ pipeline {
       steps {
         sh 'docker build -t isaak-frontend .'
         sh 'docker rm -f isaak-frontend-prod || true'
-        sh 'docker run -d -p 80:4200 --restart always --name isaak-frontend-prod isaak-frontend'
+        sh 'docker run -d -p 80:4200 --restart always --e TZ=Europe/Amsterdam --name isaak-frontend-prod isaak-frontend'
         sh 'docker image prune -f'
       }
     }
